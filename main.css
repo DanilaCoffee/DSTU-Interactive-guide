@@ -58,7 +58,7 @@ body {
 }
 
 header {
-	position: absolute;
+	position: fixed;
 	left: 50%;
     transform: translateX(-50%);
 	width: 1430px;
@@ -74,7 +74,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	opacity: 0;
-	z-index: 2;
+	z-index: 4;
 }
 
 nav {
@@ -144,7 +144,7 @@ nav {
 }
 
 .owl {
-	width: 492px;
+	width: 534px;
 }
 
 .owl img {
@@ -339,7 +339,7 @@ nav {
 
 .advicesText {
 	position: absolute;
-	padding: 14px 686px 14px 20px;
+	padding: 14px 940px 14px 20px;
 	font-family: 'Unbounded SemiBold';
 	font-size: 28.8pt;
 	color: #FFFFFF;
@@ -414,11 +414,19 @@ nav {
 	font-size: 12pt;
 	color: #FFFFFF;
 	background-color: #4987F6;
-	padding: 3px 5px;
+	padding: 3px 9px;
 	border-radius: 20px;
 	margin-right: 22px;
 	margin-bottom: 7px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+.cardTag:hover {
+	color: #4987F6;
+	background-color: #FFFFFF;
+}
+
 
 .cardButtonWrapper {
 	position: absolute;
