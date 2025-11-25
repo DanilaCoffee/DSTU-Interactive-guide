@@ -1,0 +1,525 @@
+@font-face {
+  font-family: 'Gros Ventre';
+  src: url("fonts/Gros Ventre Light.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url("fonts/Unbounded-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded SemiBold';
+  src: url("fonts/Unbounded-SemiBold.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+body::-webkit-scrollbar {
+    width: 15px;
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.b1 {
+	position: relative;
+	width: 1520px;
+	height: 1000px;
+	margin: auto;
+	padding-top: 14px;
+	background-image: url(img/bg1.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+header {
+	position: fixed;
+	left: 40px;
+	width: 1430px;
+	height: 89px;
+	margin: auto;
+	border: 0.5px solid #fff;
+	border-radius: 28px;
+	box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.25);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	opacity: 0;
+	z-index: 4;
+	overflow-x: hidden;
+	transition: width 0.3s linear;
+}
+
+.headerShort {
+	width: 134px;
+}
+
+nav {
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	width: 62px;
+	margin: 0 42px 0 36px;
+}
+
+.logo img {
+	width: 100%;
+}
+
+.navItem {
+	background-color: #4987F6;
+	color: #fff;
+	padding: 6px 25px;
+	font-family: 'Unbounded';
+	font-size: 11.7pt;
+	border-radius: 50px;
+	margin: 0 25px 0 22px;
+	cursor: pointer;
+	transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.navItem:hover {
+	background-color: #FFFFFF;
+	color: #4987F6;
+}
+
+.profileBlock {
+	font-family: 'Gros Ventre';
+	padding-right: 30px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.userImg {
+	width: 48px;
+	height: 48px;
+	margin-right: 20px;
+}
+
+.userImg img {
+	width: 100%;
+	height: 100%;
+}
+
+.userName {
+	color: #4987F6;
+	font-size: 13pt;
+	font-family: 'Unbounded';
+}
+
+.b1Content {
+	max-width: 1430px;
+	padding-right: 40px;
+	position: absolute;
+	left: 50%;
+    transform: translateX(-50%);
+	top: 228px;
+	display: flex;
+	z-index: 1;
+}
+
+.owl {
+	width: 534px;
+	transform: translateX(18px);
+}
+
+.owl img {
+	width: 100%;
+}
+
+.welcomeBlock {
+	position: relative;
+	width: 870px;
+	height: 470px;
+	margin-top: -24px;
+	margin-left: 17px;
+	border: 0.7px solid #fff;
+	border-radius: 64px;
+	box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.25);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(10px);
+	opacity: 0;
+}
+
+.welcomeText {
+	font-family: 'Unbounded';
+	font-size: 38.4pt;
+	color: #2254D7;
+	text-align: center;
+	margin: 120px 0 67px 0;
+}
+
+.mapButton {
+	width: 594px;
+	height: 104px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Unbounded';
+	font-size: 29pt;
+	background-color: #4987F6;
+	color: #fff;
+	border-radius: 40px;
+	cursor: pointer;
+	transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.mapButton:hover {
+	background-color: #FFFFFF;
+	color: #4987F6;
+}
+
+.marker {
+	width: 90px;
+	position: absolute;
+	top: -50px;
+	right: -28px;
+}
+
+.marker img {
+	width: 100%;
+}
+
+@media (max-width: 1500px) {
+
+}
+
+.b2 {
+	position: relative;
+	width: 1433px;
+	height: 350px;
+	margin: auto;
+	margin-top: 70px;
+	padding-top: 91px;
+	background-image: url(img/bg2.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.b2Text {
+	font-family: 'Unbounded';
+	color: #FFFFFF;
+	margin-left: 225px;
+}
+
+.b2Text1 {
+	font-size: 38.4pt;
+}
+
+.b2Text2 {
+	font-size: 30pt;
+	margin-top: 26px;
+}
+
+.b2Header {
+	position: absolute;
+	background-color: #FFFFFF;
+	color: #2254D7;
+	font-family: 'Unbounded';
+	font-size: 30pt;
+	padding: 4px 60px;
+	border-radius: 50px;
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+	top: -30px;
+	left: 74px;
+}
+
+.b2Clock {
+	position: absolute;
+	width: 440px;
+	top: -51px;
+	right: -48px;
+}
+
+.b2Clock img {
+	width: 100%;
+}
+
+.b2Arrow {
+	position: absolute;
+	width: 119px;
+	height: 119px;
+	bottom: 32px;
+	left: -3px;
+}
+
+.arrowImg {
+	width: 119px;
+	height: 119px;
+	position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.arrowImg::before,
+.arrowImg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.arrowImg::before {
+    background-image: url(img/arrow1select.png);
+    z-index: 1;
+}
+
+.arrowImg::after {
+    background-image: url(img/arrow1.png);
+    opacity: 0;
+    z-index: 2;
+}
+
+.arrowImg:not(:hover)::after {
+    opacity: 1;
+}
+
+.b3 {
+	margin: 45px 0;
+}
+
+.advices {
+	position: relative;
+	width: 1433px;
+	height: 145px;
+	margin: auto;
+	background-image: url(img/advicesSelect.png);
+	background-size: cover;
+    background-position: center;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.advices::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(img/advices.png);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.advices.active::before {
+    opacity: 1;
+}
+
+.advicesText {
+	position: absolute;
+	padding: 14px 940px 14px 20px;
+	font-family: 'Unbounded SemiBold';
+	font-size: 28.8pt;
+	color: #FFFFFF;
+	bottom: 0px;
+	left: 8px;
+	transition: color 0.2s ease;
+	cursor: pointer;
+}
+
+.advicesText:hover {
+	color: #A6C2EB;
+}
+
+.cards {
+	max-width: 1424px;
+	margin: auto;
+	margin-top: 42px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.card {
+	width: 438px;
+	height: 582px;
+	background-image: url(img/cardBg.png);
+	background-size: cover;
+}
+
+.cardBg {
+	position: relative;
+	width: 385px;
+	height: 516px;
+	margin-top: 26px;
+	margin-left: 26.5px;
+	padding-top: 15px;
+	border-radius: 44px;
+	background-color: #FFFFFF;
+}
+
+.cardImg {
+	width: 332px;
+	margin: auto;
+}
+
+.cardImg img {
+	width: 100%;
+}
+
+.cardHeader {
+	width: 332px;
+	margin: auto;
+	margin-top: 6px;
+	font-family: 'Unbounded';
+	font-size: 18pt;
+	color: #2254D7;
+}
+
+.cardTags {
+	position: absolute;
+	display: flex;
+	top: 346px;
+	left: 26.5px;
+}
+
+.col {
+	flex-direction: column;
+	align-items: start;
+}
+
+.cardTag {
+	font-family: 'Unbounded';
+	font-size: 12pt;
+	color: #FFFFFF;
+	background-color: #4987F6;
+	padding: 3px 9px;
+	border-radius: 20px;
+	margin-right: 22px;
+	margin-bottom: 7px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cardTag:hover {
+	color: #4987F6;
+	background-color: #FFFFFF;
+}
+
+
+.cardButtonWrapper {
+	position: absolute;
+	bottom: 28px;
+	left: 56px;
+	width: 276px;
+	height: 62px;
+}
+
+.cardButton {
+	position: relative;
+	width: 276px;
+	height: 62px;
+	color: #FFFFFF;
+	font-family: 'Unbounded';
+	font-size: 18pt;
+	border-radius: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	transition: color 0.2s ease;
+	cursor: pointer;
+}
+
+.cardButton::before,
+.cardButton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.cardButton::before {
+    background: radial-gradient(36.05% 36.05% at 50% 50.65%, #4987F6 0%, #2F6AEA 100%);
+    z-index: 1;
+}
+
+.cardButton::after {
+    background: radial-gradient(50% 35.45% at 50% 50.65%, #EAF3FF 0%, #A6C2EB 100%);
+    opacity: 0;
+    z-index: 2;
+}
+
+.cardButton:hover::after {
+    opacity: 1;
+}
+
+.cardButton span {
+	z-index: 3;
+}
+
+.cardButton:hover {
+	color: #2F6AEA;
+}
+
+footer {
+	height: 77px;
+	margin-top: 150px;
+	background-image: url(img/footerBg.png);
+	background-size: contain;
+	background-position: center top;
+	background-repeat: no-repeat;
+	padding-top: 18px;
+}
+
+.footerText {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #FFFFFF;
+	font-family: 'Unbounded';
+	font-size: 14.5pt;
+}
+
+.footerText img {
+	width: 67px;
+	margin: -15px 5px 0 5px;
+}
