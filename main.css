@@ -542,7 +542,6 @@ footer {
 
 	.welcomeText {
 		font-size: 3.3vw;
-		margin: 120px 0 67px 0;
 	}
 
 	.mapButton {
@@ -669,4 +668,75 @@ footer {
 	.footerText img {
 		width: 4vw;
 	}
+}
+
+@media (max-width: 1200px) {
+	header {
+		height: 9vw;
+	}
+
+	.headerShort {
+		width: 134px;
+	}
+
+	.logo {
+		width: 62px;
+		margin: 0 1.5vw 0 36px;
+	}
+
+	.navItem {
+		padding: 5px 1.7vw;
+		margin: 0 1.5vw;
+		font-size: 1.6vw;
+	}
+
+	.userImg {
+		width: 5vw;
+		height: 5vw;
+	}
+
+	.userName {
+		font-size: 1.7vw;
+	}
+
+	.welcomeBlock {
+		height: 30vw;
+	}
+
+	.welcomeText {
+		font-size: 3.3vw;
+		margin: 6vw 0 4vw 0;
+	}
+
+	.mapButton {
+		width: 36vw;
+		height: 7vw;
+	}
+
+	.cardBg {
+		height: 33.8vw;
+		border-radius: 26px;
+	}
+
+	.cardTags {
+		top: 24vw;
+		left: 1.7vw;
+	}
+
+	.cardButtonWrapper {
+		bottom: 1.5vw;
+		left: 3.8vw;
+		width: 18vw;
+		height: 3.8vw;
+	}
+
+	.cardButton {
+		width: 18vw;
+		height: 3.8vw;
+		font-size: 1.5vw;
+	}
+}
+
+@media (max-width: 950px) {
+	
 }
