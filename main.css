@@ -523,20 +523,150 @@ footer {
 @media (max-width: 1519px) {
 	.b1 {
 		width: 100vw;
+		height: 70vw;
 	}
 
-	.header {
+	header {
 		width: 94vw;
 		left: 3vw;
 	}
 
+	.owl {
+		width: 34vw;
+		transform: translateX(0);
+	}
+
+	.welcomeBlock {
+		width: 54vw;
+	}
+
+	.welcomeText {
+		font-size: 3.3vw;
+		margin: 120px 0 67px 0;
+	}
+
+	.mapButton {
+		width: 36vw;
+		height: 90px;
+		font-size: 2.4vw;
+	}
+
+	.marker {
+		width: 5.5vw;
+		top: -40px;
+		right: -18px;
+	}
+
 	.b2 {
-		opacity: 0;
+		width: 94vw;
+		height: 24vw;
+		margin-top: 1vw;
+		padding-top: 6vw;
 	}
-	.b3 {
-		opacity: 0;
+
+	.b2Text {
+		margin-left: 14vw;
 	}
+
+	.b2Text1 {
+		font-size: 3.5vw;
+	}
+
+	.b2Text2 {
+		font-size: 2.8vw;
+		margin-top: 1.2vw;
+	}
+
+	.b2Header {
+		font-size: 2.8vw;
+	}
+
+	.b2Clock {
+		width: 29.5vw;
+		top: -3vw;
+		right: -3.1vw;
+	}
+
+	.b2Arrow {
+		width: 7.9vw;
+		height: 7.9vw;
+		bottom: auto;
+		top: 19vw;
+		left: 0;
+	}
+
+	.arrowImg {
+		width: 7.9vw;
+		height: 7.9vw;
+	}
+
+	.advices {
+		width: 94vw;
+		height: 9vw;
+	}
+
+	.advicesText {
+		padding: 0.5vw 62.5vw 0.5vw 1vw;
+		font-size: 2.6vw;
+	}
+
+	.cards {
+		max-width: 95vw;
+	}
+
+	.card {
+		width: 29vw;
+		height: 39vw;
+	}
+
+	.cardBg {
+		width: 25.5vw;
+		height: 34.5vw;
+		margin: auto;
+		margin-top: 1.8vw;
+	}
+
+	.cardImg {
+		width: 22vw;
+	}
+
+	.cardHeader {
+		width: 22vw;
+		font-size: 1.6vw;
+	}
+
+	.cardTags {
+		top: 23vw;
+		left: 26.5px;
+	}
+
+	.cardTag {
+		font-size: 1.1vw;
+	}
+
+	.cardButtonWrapper {
+		bottom: 2vw;
+		left: 3.8vw;
+		width: 18vw;
+		height: 4vw;
+	}
+
+	.cardButton {
+		width: 18vw;
+		height: 4vw;
+		font-size: 1.6vw;
+	}
+
 	footer {
-		opacity: 0;
+		height: 5vw;
+		margin-top: 10vw;
+	}
+
+	.footerText {
+		font-size: 1.3vw;
+	}
+
+	.footerText img {
+		width: 4vw;
 	}
 }
