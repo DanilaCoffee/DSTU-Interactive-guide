@@ -141,6 +141,39 @@ nav {
 	font-family: 'Unbounded';
 }
 
+.headerMobile {
+	display: none;
+	width: 90vw;
+	margin: 3vw auto;
+	justify-content: space-between;
+}
+
+.headerMobileItem {
+	width: 20vw;
+	height: 15vw;
+	border-radius: 6vw;
+	background-color: #FFFFFFBF;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.headerMobileItem img {
+	width: 45%;
+}
+
+.headerMobileItem:nth-child(2) {
+	width: 26vw;
+}
+
+.headerMobileItem:nth-child(2) img {
+	width: 50%;
+}
+
+.headerMobileItem:nth-child(3) img {
+	width: 40%;
+}
+
 .b1Content {
 	max-width: 1430px;
 	padding-right: 40px;
@@ -173,7 +206,6 @@ nav {
 	background-color: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
-	-webkit-backdrop-filter: blur(10px);
 	opacity: 0;
 }
 
@@ -496,6 +528,119 @@ nav {
 	color: #2F6AEA;
 }
 
+.b3Mobile {
+	display: none;
+	margin: 10vw 0;
+}
+
+.advicesMobile {
+	width: 94vw;
+	height: 24.6vw;
+	margin: auto;
+	background-image: url(img/Madvices.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.cardsMobile {
+	margin-top: 5vw;
+}
+
+.cardMobile {
+	background-image: url(img/McardBg.png);
+	background-size: cover;
+	width: 100vw;
+	height: 49vw;
+	margin-bottom: 1vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cardBgMobile {
+	width: 90.5vw;
+	height: 40vw;
+	margin-top: 0.7vw;
+	border-radius: 15px;
+	background-color: #FFFFFF;
+	display: flex;
+}
+
+.cardBgMobile-content {
+	width: 60.5vw;
+	position: relative;
+}
+
+.cardHeaderMobile {
+	width: 90%;
+	margin-left: 5vw;
+	margin-top: 3vw;
+	font-family: 'Unbounded';
+	color: #2254D7;
+	font-size: 3.4vw;
+}
+
+.cardTagsMobile {
+	margin-left: 5vw;
+	margin-top: 2vw;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.cardTagMobile {
+	font-family: 'Unbounded';
+	font-size: 2.5vw;
+	color: #FFFFFF;
+	background-color: #4987F6;
+	padding: 2px 6px;
+	border-radius: 2vw;
+	margin-bottom: 1vw;
+}
+
+.cardButtonWrapperMobile {
+	width: 55vw;
+	position: absolute;
+	bottom: 2vw;
+	display: flex;
+	justify-content: center;
+}
+
+.cardButtonMobile {
+	width: 26vw;
+	height: 6vw;
+	color: #FFFFFF;
+	background: radial-gradient(36.05% 36.05% at 50% 50.65%, #4987F6 0%, #2F6AEA 100%);
+	font-family: 'Unbounded';
+	font-size: 3.1vw;
+	border-radius: 3vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cardBgMobile-img {
+	width: 36vw;
+	height: 36vw;
+	margin-top: 2vw;
+	margin-right: 5vw;
+	border-radius: 4vw;
+	background-size: cover;
+	background-position: center center;
+}
+
+.m1 {
+	background-image: url(img/Mcard1Img.png);
+}
+
+.m2 {
+	background-image: url(img/Mcard2Img.png);
+}
+
+.m3 {
+	background-image: url(img/Mcard3Img.png);
+}
+
 footer {
 	height: 77px;
 	margin-top: 150px;
@@ -738,5 +883,135 @@ footer {
 }
 
 @media (max-width: 950px) {
-	
+	.b1 {
+		height: 132vw;
+		background-image: url(img/bg1m.png);
+	}
+
+	header {
+		display: none;
+	}
+
+	.headerMobile {
+		display: flex;
+	}
+
+	.b1Content {
+		width: 94vw;
+		padding-right: 0px;
+		top: auto;
+		bottom: 7vw;
+		justify-content: space-between;
+	}
+
+	.owl {
+		width: 36vw;
+	}
+
+	.welcomeBlock {
+		border-radius: 20px;
+		margin: 1vw 0 0 0;
+		border: 0px solid #fff;
+		box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+		background-color: rgba(255, 255, 255, 0.5);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+	}
+
+	.marker {
+		width: 5.5vw;
+		top: -2vw;
+		right: -1vw;
+	}
+
+	.welcomeBlock {
+		width: 58vw;
+		height: 40vw;
+	}
+
+	.m {
+		display: none;
+	}
+
+	.welcomeText {
+		font-size: 4.1vw;
+		padding: 0 5px;
+	}
+
+	.mapButton {
+		width: 42vw;
+		height: 8.5vw;
+		font-size: 3vw;
+	}
+
+	.b2 {
+		background-image: url(img/Mbg2.png);
+		background-size: cover;
+		height: 31vw;
+	}
+
+	.b2Header {
+		font-size: 3.2vw;
+		padding: 4px 6vw;
+		top: -3vw;
+		left: 6vw;
+	}
+
+	.b2Text1 {
+		font-size: 3.8vw;
+		margin-top: 1.6vw;
+	}
+
+	.b2Text2 {
+		font-size: 3vw;
+		margin-top: 2.2vw;
+	}
+
+	.b2Arrow {
+		width: 7.9vw;
+		height: 15vw;
+		top: 21.5vw;
+	}
+
+	.arrowImg {
+		width: 7.9vw;
+		height: 15vw;
+	}
+
+	.arrowImg::before {
+	    background-image: url(img/Marrow1.png);
+	}
+
+	.arrowImg::after {
+	    background-image: url(img/Marrow1.png);
+	}
+
+	.b2Clock {
+		width: 32vw;
+		top: 7vw;
+	}
+
+	.b3 {
+		display: none;
+	}
+
+	.b3Mobile {
+		display: block;
+	}
+
+	footer {
+		background-image: url(img/MfooterBg.png);
+		height: 8.5vw;
+	}
+
+	.footerText {
+		margin-top: -2vw;
+		margin-left: -2.5vw;
+		font-size: 2.6vw;
+	}
+
+	.footerText img {
+		width: 6.5vw;
+		margin: -1.2vw 5px 0 5px;
+	}
 }
