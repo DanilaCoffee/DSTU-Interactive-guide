@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+    <title>ДГТУ - Интерактивный путеводитель по университету. Интерактивная карта</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .map-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            cursor: grab;
+            touch-action: none;
+            background-color: #B9D4FF;
+        }
+
+        .map-container.grabbing {
+            cursor: grabbing;
+        }
+
+        #mapImage {
+            position: absolute;
+            transform-origin: 0 0;
+            will-change: transform;
+            /* object-fit: contain; */ /* Убираем, так как будем управлять через transform */
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .zoom-controls button {
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            background: #f8f8f8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-controls button:hover {
+            background: #e8e8e8;
+            transform: scale(1.05);
+        }
+
+        .zoom-controls button:active {
+            transform: scale(0.95);
+        }
+
+        .current-zoom {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container" id="mapContainer">
+        <img src="img/map.png" alt="Карта" id="mapImage">
+        <div class="current-zoom" id="zoomInfo">Масштаб: 100%</div>
+        <div class="zoom-controls">
+            <button onclick="zoomIn()" title="Приблизить">+</button>
+            <button onclick="zoomOut()" title="Отдалить">-</button>
+            <button onclick="resetView()" title="Вернуть к начальному виду">⟲</button>
+        </div>
+    </div>
+
+    <script>
+        const mapContainer = document.getElementById('mapContainer');
+        const mapImage = document.getElementById('mapImage');
+        const zoomInfo = document.getElementById('zoomInfo');
+        
+        const mapWidth = 7000;
+        const mapHeight = 5000;
+        
+        let scale = 1;
+        let posX = 0;
+        let posY = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        
+        // Для пинч-зума
+        let initialPinchDistance = 0;
+        let initialScale = 1;
+        
+        // Инициализация - растягиваем карту на весь экран
+        function initMap() {
+            const containerWidth = mapContainer.clientWidth;
+            const containerHeight = mapContainer.clientHeight;
+            
+            // Рассчитываем масштаб так, чтобы карта полностью заполнила экран
+            // с сохранением пропорций (как object-fit: contain)
+            const scaleX = containerWidth / mapWidth;
+            const scaleY = containerHeight / mapHeight;
+            
+            // Берем минимальный масштаб, чтобы вся карта поместилась
+            scale = Math.min(scaleX, scaleY);
+            
+            // Центрируем карту
+            const scaledWidth = mapWidth * scale;
+            const scaledHeight = mapHeight * scale;
+            
+            posX = (containerWidth - scaledWidth) / 2;
+            posY = (containerHeight - scaledHeight) / 2;
+            
+            console.log(`Инициализация:
+                Размер контейнера: ${containerWidth}x${containerHeight}
+                Масштаб: ${scale}
+                Позиция: ${posX}, ${posY}
+                Размер карты со масштабом: ${scaledWidth}x${scaledHeight}`);
+            
+            updateTransform();
+            updateZoomInfo();
+        }
+        
+        // Обновление трансформации
+        function updateTransform() {
+            mapImage.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
+        
+        // Обновление информации о масштабе
+        function updateZoomInfo() {
+            const percentage = Math.round(scale * 100);
+            zoomInfo.textContent = `Масштаб: ${percentage}%`;
+        }
+        
+        // Ограничение перемещения
+        function constrainPosition() {
+            const containerWidth = mapContainer.clientWidth;
+            const containerHeight = mapContainer.clientHeight;
+            const scaledWidth = mapWidth * scale;
+            const scaledHeight = mapHeight * scale;
+            
+            // Если карта меньше контейнера, центрируем
+            if (scaledWidth <= containerWidth) {
+                posX = (containerWidth - scaledWidth) / 2;
+            } else {
+                // Ограничиваем, чтобы не выходило за границы
+                const maxX = 0;
+                const minX = containerWidth - scaledWidth;
+                posX = Math.max(minX, Math.min(maxX, posX));
+            }
+            
+            if (scaledHeight <= containerHeight) {
+                posY = (containerHeight - scaledHeight) / 2;
+            } else {
+                const maxY = 0;
+                const minY = containerHeight - scaledHeight;
+                posY = Math.max(minY, Math.min(maxY, posY));
+            }
+        }
+        
+        // === ОБРАБОТЧИКИ ДЛЯ МЫШИ ===
+        
+        mapContainer.addEventListener('mousedown', (e) => {
+            // Только левая кнопка мыши
+            if (e.button !== 0) return;
+            
+            isDragging = true;
+            startX = e.clientX - posX;
+            startY = e.clientY - posY;
+            mapContainer.classList.add('grabbing');
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            posX = e.clientX - startX;
+            posY = e.clientY - startY;
+            constrainPosition();
+            updateTransform();
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            mapContainer.classList.remove('grabbing');
+        });
+        
+        // Масштабирование колесиком мыши
+        mapContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            
+            const rect = mapContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Более плавный зум
+            const zoomSpeed = 0.001;
+            const delta = e.deltaY || e.detail || e.wheelDelta;
+            const zoomFactor = Math.exp(-delta * zoomSpeed);
+            
+            const lastScale = scale;
+            scale *= zoomFactor;
+            
+            // Ограничения масштаба
+            const containerWidth = mapContainer.clientWidth;
+            const containerHeight = mapContainer.clientHeight;
+            const minScaleX = containerWidth / mapWidth;
+            const minScaleY = containerHeight / mapHeight;
+            const minScale = Math.min(minScaleX, minScaleY);
+            
+            scale = Math.max(minScale, Math.min(10, scale)); // Максимум 1000%
+            
+            // Сохраняем точку под курсором
+            posX = mouseX - (mouseX - posX) * (scale / lastScale);
+            posY = mouseY - (mouseY - posY) * (scale / lastScale);
+            
+            constrainPosition();
+            updateTransform();
+            updateZoomInfo();
+        }, { passive: false });
+        
+        // === ОБРАБОТЧИКИ ДЛЯ ТАЧ-УСТРОЙСТВ ===
+        
+        mapContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - posX;
+                startY = e.touches[0].clientY - posY;
+            } else if (e.touches.length === 2) {
+                isDragging = false;
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                
+                initialPinchDistance = Math.sqrt(
+                    Math.pow(touch2.clientX - touch1.clientX, 2) +
+                    Math.pow(touch2.clientY - touch1.clientY, 2)
+                );
+                initialScale = scale;
+            }
+            e.preventDefault();
+        }, { passive: false });
+        
+        mapContainer.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1 && isDragging) {
+                posX = e.touches[0].clientX - startX;
+                posY = e.touches[0].clientY - startY;
+                constrainPosition();
+                updateTransform();
+            } else if (e.touches.length === 2) {
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                
+                const currentDistance = Math.sqrt(
+                    Math.pow(touch2.clientX - touch1.clientX, 2) +
+                    Math.pow(touch2.clientY - touch1.clientY, 2)
+                );
+                
+                if (initialPinchDistance > 0) {
+                    // Рассчитываем новый масштаб
+                    const containerWidth = mapContainer.clientWidth;
+                    const containerHeight = mapContainer.clientHeight;
+                    const minScaleX = containerWidth / mapWidth;
+                    const minScaleY = containerHeight / mapHeight;
+                    const minScale = Math.min(minScaleX, minScaleY);
+                    
+                    scale = initialScale * (currentDistance / initialPinchDistance);
+                    scale = Math.max(minScale, Math.min(10, scale));
+                    
+                    constrainPosition();
+                    updateTransform();
+                    updateZoomInfo();
+                }
+            }
+            e.preventDefault();
+        }, { passive: false });
+        
+        mapContainer.addEventListener('touchend', (e) => {
+            if (e.touches.length === 0) {
+                isDragging = false;
+                initialPinchDistance = 0;
+            }
+        });
+        
+        // === ФУНКЦИИ УПРАВЛЕНИЯ ===
+        
+        function zoomIn() {
+            const rect = mapContainer.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const lastScale = scale;
+            scale *= 1.2;
+            scale = Math.min(10, scale);
+            
+            posX = centerX - (centerX - posX) * (scale / lastScale);
+            posY = centerY - (centerY - posY) * (scale / lastScale);
+            
+            constrainPosition();
+            updateTransform();
+            updateZoomInfo();
+        }
+        
+        function zoomOut() {
+            const rect = mapContainer.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const lastScale = scale;
+            scale *= 0.8;
+            
+            // Минимальный масштаб - чтобы карта полностью помещалась
+            const containerWidth = mapContainer.clientWidth;
+            const containerHeight = mapContainer.clientHeight;
+            const minScaleX = containerWidth / mapWidth;
+            const minScaleY = containerHeight / mapHeight;
+            const minScale = Math.min(minScaleX, minScaleY);
+            
+            scale = Math.max(minScale, scale);
+            
+            posX = centerX - (centerX - posX) * (scale / lastScale);
+            posY = centerY - (centerY - posY) * (scale / lastScale);
+            
+            constrainPosition();
+            updateTransform();
+            updateZoomInfo();
+        }
+        
+        function resetView() {
+            initMap();
+        }
+        
+        // === ИНИЦИАЛИЗАЦИЯ ===
+        
+        // Ждем загрузки картинки
+        mapImage.onload = function() {
+            console.log('Карта загружена, размеры:', mapImage.naturalWidth, 'x', mapImage.naturalHeight);
+            initMap();
+        };
+        
+        // На случай, если картинка уже загружена (из кеша)
+        if (mapImage.complete) {
+            mapImage.onload();
+        }
+        
+        // Обновляем при изменении размера окна
+        window.addEventListener('resize', () => {
+            // При уменьшении масштаба, если карта стала больше контейнера
+            const containerWidth = mapContainer.clientWidth;
+            const containerHeight = mapContainer.clientHeight;
+            const minScaleX = containerWidth / mapWidth;
+            const minScaleY = containerHeight / mapHeight;
+            const minScale = Math.min(minScaleX, minScaleY);
+            
+            if (scale < minScale) {
+                scale = minScale;
+            }
+            
+            constrainPosition();
+            updateTransform();
+            updateZoomInfo();
+        });
+        
+        // Запрещаем контекстное меню на карте
+        mapContainer.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>

@@ -24,6 +24,10 @@ html {
     scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
 }
 
+a {
+	text-decoration: none;
+}
+
 body::-webkit-scrollbar {
     width: 15px;
     background: transparent;
