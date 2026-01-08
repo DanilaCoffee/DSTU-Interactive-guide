@@ -13,385 +13,622 @@
         }
 
         body {
+            font-family: Arial, sans-serif;
             overflow: hidden;
+            background-color: #B9D4FF;
             height: 100vh;
             width: 100vw;
         }
 
-        .map-container {
-            width: 100vw;
-            height: 100vh;
+        #mapContainer {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             position: relative;
             cursor: grab;
-            touch-action: none;
             background-color: #B9D4FF;
         }
 
-        .map-container.grabbing {
+        #mapContainer.grabbing {
             cursor: grabbing;
         }
 
-        #mapImage {
+        #mapWrapper {
             position: absolute;
+            width: 100%;
+            height: 100%;
             transform-origin: 0 0;
-            will-change: transform;
-            /* object-fit: contain; */ /* Убираем, так как будем управлять через transform */
+            image-rendering: crisp-edges;
+            shape-rendering: geometricPrecision;
+            transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .zoom-controls {
+        #mapWrapper.zooming {
+            transition: none;
+        }
+
+        #eventOverlay {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            cursor: inherit;
+        }
+
+        .controls {
+            position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 100;
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 100;
         }
 
-        .zoom-controls button {
+        .control-btn {
             width: 44px;
             height: 44px;
-            font-size: 20px;
-            font-weight: bold;
-            border: none;
-            background: #f8f8f8;
-            border-radius: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.2s;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            z-index: 101;
         }
 
-        .zoom-controls button:hover {
-            background: #e8e8e8;
-            transform: scale(1.05);
+        .control-btn:hover {
+            background: white;
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
         }
 
-        .zoom-controls button:active {
+        .control-btn:active {
             transform: scale(0.95);
         }
 
-        .current-zoom {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 8px 16px;
+        .zoom-info {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            user-select: none;
+            backdrop-filter: blur(5px);
+            color: #222;
+        }
+
+        #svgIframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            display: block;
+            overflow: visible;
+            width: 10000px;
+            height: 10000px;
+            transform: translate(-50%, -50%);
+            /* Скрываем скролл-бары у самого iframe */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        /* Скрываем скролл-бар в WebKit браузерах */
+        #svgIframe::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+        
+        .iframe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
         }
     </style>
 </head>
 <body>
-    <div class="map-container" id="mapContainer">
-        <img src="img/map.png" alt="Карта" id="mapImage">
-        <div class="current-zoom" id="zoomInfo">Масштаб: 100%</div>
-        <div class="zoom-controls">
-            <button onclick="zoomIn()" title="Приблизить">+</button>
-            <button onclick="zoomOut()" title="Отдалить">-</button>
-            <button onclick="resetView()" title="Вернуть к начальному виду">⟲</button>
+    <div class="zoom-info" id="zoomInfo">Масштаб: 12%</div>
+    
+    <div id="mapContainer">
+        <div id="eventOverlay"></div>
+        
+        <div id="mapWrapper">
+            <div class="iframe-container">
+                <iframe id="svgIframe" title="SVG Map"></iframe>
+            </div>
         </div>
     </div>
 
+    <div class="controls">
+        <button class="control-btn" id="zoomIn">+</button>
+        <button class="control-btn" id="zoomOut">-</button>
+        <button class="control-btn" id="reset">↻</button>
+    </div>
+    
     <script>
-        const mapContainer = document.getElementById('mapContainer');
-        const mapImage = document.getElementById('mapImage');
-        const zoomInfo = document.getElementById('zoomInfo');
-        
-        const mapWidth = 7000;
-        const mapHeight = 5000;
-        
-        let scale = 1;
-        let posX = 0;
-        let posY = 0;
-        let isDragging = false;
-        let startX = 0;
-        let startY = 0;
-        
-        // Для пинч-зума
-        let initialPinchDistance = 0;
-        let initialScale = 1;
-        
-        // Инициализация - растягиваем карту на весь экран
-        function initMap() {
-            const containerWidth = mapContainer.clientWidth;
-            const containerHeight = mapContainer.clientHeight;
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapContainer = document.getElementById('mapContainer');
+            const eventOverlay = document.getElementById('eventOverlay');
+            const mapWrapper = document.getElementById('mapWrapper');
+            const svgIframe = document.getElementById('svgIframe');
+            const zoomInfo = document.getElementById('zoomInfo');
+            const zoomInBtn = document.getElementById('zoomIn');
+            const zoomOutBtn = document.getElementById('zoomOut');
+            const resetBtn = document.getElementById('reset');
             
-            // Рассчитываем масштаб так, чтобы карта полностью заполнила экран
-            // с сохранением пропорций (как object-fit: contain)
-            const scaleX = containerWidth / mapWidth;
-            const scaleY = containerHeight / mapHeight;
+            // 1. Начальный масштаб 12%
+            let scale = 0.12;
+            let targetScale = 0.12;
+            let position = { x: 0, y: 0 };
+            let targetPosition = { x: 0, y: 0 };
+            let isDragging = false;
+            let dragStart = { x: 0, y: 0 };
+            let startPosition = { x: 0, y: 0 };
+            let svgSize = { width: 0, height: 0 };
             
-            // Берем минимальный масштаб, чтобы вся карта поместилась
-            scale = Math.min(scaleX, scaleY);
+            let zoomAnimationId = null;
+            let isAnimating = false;
             
-            // Центрируем карту
-            const scaledWidth = mapWidth * scale;
-            const scaledHeight = mapHeight * scale;
+            const MIN_SCALE = 0.05;
+            const MAX_SCALE = 10;
+            const SCALE_SENSITIVITY = 0.001;
+            const ZOOM_SPEED = 0.15;
+            const INERTIA_DECAY = 0.9;
             
-            posX = (containerWidth - scaledWidth) / 2;
-            posY = (containerHeight - scaledHeight) / 2;
+            let containerWidth = mapContainer.clientWidth;
+            let containerHeight = mapContainer.clientHeight;
             
-            console.log(`Инициализация:
-                Размер контейнера: ${containerWidth}x${containerHeight}
-                Масштаб: ${scale}
-                Позиция: ${posX}, ${posY}
-                Размер карты со масштабом: ${scaledWidth}x${scaledHeight}`);
+            let wheelDelta = 0;
+            let lastWheelTime = 0;
+            let isZooming = false;
             
-            updateTransform();
-            updateZoomInfo();
-        }
-        
-        // Обновление трансформации
-        function updateTransform() {
-            mapImage.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-        }
-        
-        // Обновление информации о масштабе
-        function updateZoomInfo() {
-            const percentage = Math.round(scale * 100);
-            zoomInfo.textContent = `Масштаб: ${percentage}%`;
-        }
-        
-        // Ограничение перемещения
-        function constrainPosition() {
-            const containerWidth = mapContainer.clientWidth;
-            const containerHeight = mapContainer.clientHeight;
-            const scaledWidth = mapWidth * scale;
-            const scaledHeight = mapHeight * scale;
-            
-            // Если карта меньше контейнера, центрируем
-            if (scaledWidth <= containerWidth) {
-                posX = (containerWidth - scaledWidth) / 2;
-            } else {
-                // Ограничиваем, чтобы не выходило за границы
-                const maxX = 0;
-                const minX = containerWidth - scaledWidth;
-                posX = Math.max(minX, Math.min(maxX, posX));
+            function updateTransform(instant = false) {
+                if (instant) {
+                    mapWrapper.classList.add('zooming');
+                    mapWrapper.style.transform = `matrix(${scale}, 0, 0, ${scale}, ${position.x}, ${position.y})`;
+                } else {
+                    mapWrapper.classList.remove('zooming');
+                    mapWrapper.style.transform = `matrix(${scale}, 0, 0, ${scale}, ${position.x}, ${position.y})`;
+                }
+                zoomInfo.textContent = `Масштаб: ${Math.round(scale * 100)}%`;
+                
+                updateIframeStyles();
             }
             
-            if (scaledHeight <= containerHeight) {
-                posY = (containerHeight - scaledHeight) / 2;
-            } else {
-                const maxY = 0;
-                const minY = containerHeight - scaledHeight;
-                posY = Math.max(minY, Math.min(maxY, posY));
-            }
-        }
-        
-        // === ОБРАБОТЧИКИ ДЛЯ МЫШИ ===
-        
-        mapContainer.addEventListener('mousedown', (e) => {
-            // Только левая кнопка мыши
-            if (e.button !== 0) return;
-            
-            isDragging = true;
-            startX = e.clientX - posX;
-            startY = e.clientY - posY;
-            mapContainer.classList.add('grabbing');
-            e.preventDefault();
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            posX = e.clientX - startX;
-            posY = e.clientY - startY;
-            constrainPosition();
-            updateTransform();
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            mapContainer.classList.remove('grabbing');
-        });
-        
-        // Масштабирование колесиком мыши
-        mapContainer.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            
-            const rect = mapContainer.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            
-            // Более плавный зум
-            const zoomSpeed = 0.001;
-            const delta = e.deltaY || e.detail || e.wheelDelta;
-            const zoomFactor = Math.exp(-delta * zoomSpeed);
-            
-            const lastScale = scale;
-            scale *= zoomFactor;
-            
-            // Ограничения масштаба
-            const containerWidth = mapContainer.clientWidth;
-            const containerHeight = mapContainer.clientHeight;
-            const minScaleX = containerWidth / mapWidth;
-            const minScaleY = containerHeight / mapHeight;
-            const minScale = Math.min(minScaleX, minScaleY);
-            
-            scale = Math.max(minScale, Math.min(10, scale)); // Максимум 1000%
-            
-            // Сохраняем точку под курсором
-            posX = mouseX - (mouseX - posX) * (scale / lastScale);
-            posY = mouseY - (mouseY - posY) * (scale / lastScale);
-            
-            constrainPosition();
-            updateTransform();
-            updateZoomInfo();
-        }, { passive: false });
-        
-        // === ОБРАБОТЧИКИ ДЛЯ ТАЧ-УСТРОЙСТВ ===
-        
-        mapContainer.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                isDragging = true;
-                startX = e.touches[0].clientX - posX;
-                startY = e.touches[0].clientY - posY;
-            } else if (e.touches.length === 2) {
-                isDragging = false;
-                const touch1 = e.touches[0];
-                const touch2 = e.touches[1];
+            function animateZoom() {
+                if (!isAnimating) return;
                 
-                initialPinchDistance = Math.sqrt(
-                    Math.pow(touch2.clientX - touch1.clientX, 2) +
-                    Math.pow(touch2.clientY - touch1.clientY, 2)
-                );
-                initialScale = scale;
-            }
-            e.preventDefault();
-        }, { passive: false });
-        
-        mapContainer.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 1 && isDragging) {
-                posX = e.touches[0].clientX - startX;
-                posY = e.touches[0].clientY - startY;
-                constrainPosition();
-                updateTransform();
-            } else if (e.touches.length === 2) {
-                const touch1 = e.touches[0];
-                const touch2 = e.touches[1];
+                const scaleDiff = targetScale - scale;
+                const posDiffX = targetPosition.x - position.x;
+                const posDiffY = targetPosition.y - position.y;
                 
-                const currentDistance = Math.sqrt(
-                    Math.pow(touch2.clientX - touch1.clientX, 2) +
-                    Math.pow(touch2.clientY - touch1.clientY, 2)
-                );
-                
-                if (initialPinchDistance > 0) {
-                    // Рассчитываем новый масштаб
-                    const containerWidth = mapContainer.clientWidth;
-                    const containerHeight = mapContainer.clientHeight;
-                    const minScaleX = containerWidth / mapWidth;
-                    const minScaleY = containerHeight / mapHeight;
-                    const minScale = Math.min(minScaleX, minScaleY);
-                    
-                    scale = initialScale * (currentDistance / initialPinchDistance);
-                    scale = Math.max(minScale, Math.min(10, scale));
-                    
-                    constrainPosition();
+                if (Math.abs(scaleDiff) < 0.001 && Math.abs(posDiffX) < 0.5 && Math.abs(posDiffY) < 0.5) {
+                    scale = targetScale;
+                    position.x = targetPosition.x;
+                    position.y = targetPosition.y;
+                    isAnimating = false;
                     updateTransform();
-                    updateZoomInfo();
+                    return;
+                }
+                
+                scale += scaleDiff * ZOOM_SPEED;
+                position.x += posDiffX * ZOOM_SPEED;
+                position.y += posDiffY * ZOOM_SPEED;
+                
+                updateTransform();
+                zoomAnimationId = requestAnimationFrame(animateZoom);
+            }
+            
+            function startZoomAnimation() {
+                if (isAnimating) {
+                    cancelAnimationFrame(zoomAnimationId);
+                }
+                isAnimating = true;
+                zoomAnimationId = requestAnimationFrame(animateZoom);
+            }
+            
+            function updateIframeStyles() {
+                try {
+                    const iframeDoc = svgIframe.contentDocument;
+                    if (!iframeDoc) return;
+                    
+                    const svgElement = iframeDoc.querySelector('svg');
+                    if (!svgElement) return;
+                    
+                    svgElement.style.vectorEffect = 'non-scaling-stroke';
+                    svgElement.style.shapeRendering = 'geometricPrecision';
+                    svgElement.style.textRendering = 'geometricPrecision';
+                    svgElement.style.imageRendering = 'optimizeQuality';
+                    svgElement.style.display = 'block';
+                    svgElement.style.overflow = 'visible';
+                    
+                    const allElements = svgElement.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        if (el.style) {
+                            el.style.vectorEffect = 'non-scaling-stroke';
+                            el.style.shapeRendering = 'geometricPrecision';
+                        }
+                    });
+                    
+                } catch (e) {
+                    // Игнорируем ошибки CORS
                 }
             }
-            e.preventDefault();
-        }, { passive: false });
-        
-        mapContainer.addEventListener('touchend', (e) => {
-            if (e.touches.length === 0) {
+            
+            function centerMap() {
+                if (svgSize.width > 0 && svgSize.height > 0) {
+                    // Ключевое исправление: центрируем середину SVG
+                    const containerCenterX = containerWidth / 2;
+                    const containerCenterY = containerHeight / 2;
+                    
+                    // Находим центр SVG после масштабирования
+                    const svgCenterX = svgSize.width * scale / 2;
+                    const svgCenterY = svgSize.height * scale / 2;
+                    
+                    // Позиционируем так, чтобы центр SVG был в центре контейнера
+                    position.x = containerCenterX - svgCenterX;
+                    position.y = containerCenterY - svgCenterY;
+                    
+                    targetPosition.x = position.x;
+                    targetPosition.y = position.y;
+                    
+                    updateTransform(true);
+                    console.log('Карта центрирована:', { 
+                        scale, 
+                        position, 
+                        svgSize, 
+                        containerSize: { containerWidth, containerHeight } 
+                    });
+                    return true;
+                } else {
+                    console.log('Не могу центрировать: размеры SVG неизвестны');
+                    return false;
+                }
+            }
+            
+            function loadAndCenterSVG() {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'img/map.svg', true);
+                xhr.overrideMimeType('image/svg+xml');
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const parser = new DOMParser();
+                        const svgDoc = parser.parseFromString(xhr.responseText, 'image/svg+xml');
+                        const svgElement = svgDoc.querySelector('svg');
+                        
+                        if (svgElement) {
+                            let width = svgElement.getAttribute('width');
+                            let height = svgElement.getAttribute('height');
+                            
+                            if (!width || !height) {
+                                const viewBox = svgElement.getAttribute('viewBox');
+                                if (viewBox) {
+                                    const parts = viewBox.split(' ');
+                                    if (parts.length >= 4) {
+                                        width = parts[2];
+                                        height = parts[3];
+                                    }
+                                }
+                            }
+                            
+                            svgSize.width = parseFloat(width) || 1000;
+                            svgSize.height = parseFloat(height) || 1000;
+                            
+                            console.log('Размеры SVG определены:', svgSize);
+                            
+                            const iframeHTML = `
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <style>
+                                        * {
+                                            margin: 0;
+                                            padding: 0;
+                                            box-sizing: border-box;
+                                        }
+                                        html, body {
+                                            width: ${svgSize.width}px;
+                                            height: ${svgSize.height}px;
+                                            overflow: visible !important;
+                                            background: transparent;
+                                            scrollbar-width: none;
+                                            -ms-overflow-style: none;
+                                        }
+                                        html::-webkit-scrollbar,
+                                        body::-webkit-scrollbar {
+                                            display: none;
+                                            width: 0;
+                                            height: 0;
+                                        }
+                                        svg {
+                                            display: block;
+                                            overflow: visible !important;
+                                        }
+                                    </style>
+                                </head>
+                                <body>
+                                    ${xhr.responseText}
+                                </body>
+                                </html>
+                            `;
+                            
+                            const iframeDoc = svgIframe.contentDocument || svgIframe.contentWindow.document;
+                            iframeDoc.open();
+                            iframeDoc.write(iframeHTML);
+                            iframeDoc.close();
+                            
+                            svgIframe.style.width = svgSize.width + 'px';
+                            svgIframe.style.height = svgSize.height + 'px';
+                            
+                            // Сначала обновляем стили
+                            updateIframeStyles();
+                            
+                            // Затем центрируем карту
+                            setTimeout(() => {
+                                centerMap();
+                            }, 50);
+                        }
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    console.log('Ошибка загрузки SVG, пробуем через object');
+                    const iframeHTML = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <style>
+                                * {
+                                    margin: 0;
+                                    padding: 0;
+                                    box-sizing: border-box;
+                                }
+                                html, body {
+                                    width: 100%;
+                                    height: 100%;
+                                    overflow: visible !important;
+                                    background: transparent;
+                                    scrollbar-width: none;
+                                    -ms-overflow-style: none;
+                                }
+                                html::-webkit-scrollbar,
+                                body::-webkit-scrollbar {
+                                    display: none;
+                                    width: 0;
+                                    height: 0;
+                                }
+                                svg {
+                                    display: block;
+                                    overflow: visible !important;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <object data="img/map.svg" type="image/svg+xml" width="100%" height="100%">
+                                Ваш браузер не поддерживает SVG
+                            </object>
+                        </body>
+                        </html>
+                    `;
+                    
+                    const iframeDoc = svgIframe.contentDocument || svgIframe.contentWindow.document;
+                    iframeDoc.open();
+                    iframeDoc.write(iframeHTML);
+                    iframeDoc.close();
+                    
+                    setTimeout(() => {
+                        try {
+                            const iframeDoc = svgIframe.contentDocument;
+                            const svgElement = iframeDoc.querySelector('svg') || 
+                                             (iframeDoc.querySelector('object') && 
+                                              iframeDoc.querySelector('object').contentDocument && 
+                                              iframeDoc.querySelector('object').contentDocument.querySelector('svg'));
+                            
+                            if (svgElement) {
+                                const bbox = svgElement.getBBox();
+                                svgSize.width = bbox.width + bbox.x;
+                                svgSize.height = bbox.height + bbox.y;
+                                
+                                console.log('Размеры SVG определены через BBox:', svgSize);
+                                
+                                svgIframe.style.width = svgSize.width + 'px';
+                                svgIframe.style.height = svgSize.height + 'px';
+                                
+                                updateIframeStyles();
+                                
+                                // Центрируем карту
+                                setTimeout(() => {
+                                    centerMap();
+                                }, 100);
+                            }
+                        } catch(e) {
+                            console.warn('Не удалось определить размеры SVG:', e);
+                        }
+                    }, 500);
+                };
+                
+                try {
+                    xhr.send();
+                } catch (e) {
+                    xhr.onerror();
+                }
+            }
+            
+            function handleZoom(delta, clientX, clientY, instant = false) {
+                const rect = mapContainer.getBoundingClientRect();
+                const mouseX = clientX - rect.left;
+                const mouseY = clientY - rect.top;
+                
+                const worldX = (mouseX - position.x) / scale;
+                const worldY = (mouseY - position.y) / scale;
+                
+                targetScale = scale + delta;
+                targetScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, targetScale));
+                
+                targetPosition.x = mouseX - worldX * targetScale;
+                targetPosition.y = mouseY - worldY * targetScale;
+                
+                if (instant) {
+                    scale = targetScale;
+                    position.x = targetPosition.x;
+                    position.y = targetPosition.y;
+                    updateTransform(true);
+                } else {
+                    startZoomAnimation();
+                }
+            }
+            
+            eventOverlay.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const now = Date.now();
+                const timeDiff = now - lastWheelTime;
+                lastWheelTime = now;
+                
+                let delta = -e.deltaY * SCALE_SENSITIVITY;
+                delta = Math.max(-0.15, Math.min(0.15, delta));
+                
+                if (timeDiff < 50) {
+                    delta *= 1.5;
+                }
+                
+                wheelDelta += delta;
+                wheelDelta *= INERTIA_DECAY;
+                
+                handleZoom(wheelDelta, e.clientX, e.clientY, false);
+                
+                if (isZooming) {
+                    clearTimeout(isZooming);
+                }
+                isZooming = setTimeout(() => {
+                    wheelDelta = 0;
+                }, 150);
+                
+            }, { passive: false });
+            
+            eventOverlay.addEventListener('mousedown', function(e) {
+                if (e.button === 0) {
+                    isDragging = true;
+                    mapContainer.classList.add('grabbing');
+                    eventOverlay.style.cursor = 'grabbing';
+                    dragStart.x = e.clientX;
+                    dragStart.y = e.clientY;
+                    startPosition.x = position.x;
+                    startPosition.y = position.y;
+                    
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                
+                const dx = e.clientX - dragStart.x;
+                const dy = e.clientY - dragStart.y;
+                
+                position.x = startPosition.x + dx;
+                position.y = startPosition.y + dy;
+                targetPosition.x = position.x;
+                targetPosition.y = position.y;
+                
+                updateTransform(true);
+            });
+            
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    mapContainer.classList.remove('grabbing');
+                    eventOverlay.style.cursor = 'grab';
+                }
+            });
+            
+            eventOverlay.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    dragStart.x = e.touches[0].clientX;
+                    dragStart.y = e.touches[0].clientY;
+                    startPosition.x = position.x;
+                    startPosition.y = position.y;
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            eventOverlay.addEventListener('touchmove', function(e) {
+                if (isDragging && e.touches.length === 1) {
+                    const dx = e.touches[0].clientX - dragStart.x;
+                    const dy = e.touches[0].clientY - dragStart.y;
+                    
+                    position.x = startPosition.x + dx;
+                    position.y = startPosition.y + dy;
+                    targetPosition.x = position.x;
+                    targetPosition.y = position.y;
+                    
+                    updateTransform(true);
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            eventOverlay.addEventListener('touchend', function() {
                 isDragging = false;
-                initialPinchDistance = 0;
-            }
-        });
-        
-        // === ФУНКЦИИ УПРАВЛЕНИЯ ===
-        
-        function zoomIn() {
-            const rect = mapContainer.getBoundingClientRect();
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            });
             
-            const lastScale = scale;
-            scale *= 1.2;
-            scale = Math.min(10, scale);
+            zoomInBtn.addEventListener('click', function() {
+                handleZoom(0.2, containerWidth / 2, containerHeight / 2, true);
+            });
             
-            posX = centerX - (centerX - posX) * (scale / lastScale);
-            posY = centerY - (centerY - posY) * (scale / lastScale);
+            zoomOutBtn.addEventListener('click', function() {
+                handleZoom(-0.2, containerWidth / 2, containerHeight / 2, true);
+            });
             
-            constrainPosition();
-            updateTransform();
-            updateZoomInfo();
-        }
-        
-        function zoomOut() {
-            const rect = mapContainer.getBoundingClientRect();
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            resetBtn.addEventListener('click', function() {
+                scale = 0.12;
+                targetScale = 0.12;
+                centerMap();
+            });
             
-            const lastScale = scale;
-            scale *= 0.8;
+            window.addEventListener('resize', function() {
+                containerWidth = mapContainer.clientWidth;
+                containerHeight = mapContainer.clientHeight;
+                centerMap();
+            });
             
-            // Минимальный масштаб - чтобы карта полностью помещалась
-            const containerWidth = mapContainer.clientWidth;
-            const containerHeight = mapContainer.clientHeight;
-            const minScaleX = containerWidth / mapWidth;
-            const minScaleY = containerHeight / mapHeight;
-            const minScale = Math.min(minScaleX, minScaleY);
+            eventOverlay.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
             
-            scale = Math.max(minScale, scale);
-            
-            posX = centerX - (centerX - posX) * (scale / lastScale);
-            posY = centerY - (centerY - posY) * (scale / lastScale);
-            
-            constrainPosition();
-            updateTransform();
-            updateZoomInfo();
-        }
-        
-        function resetView() {
-            initMap();
-        }
-        
-        // === ИНИЦИАЛИЗАЦИЯ ===
-        
-        // Ждем загрузки картинки
-        mapImage.onload = function() {
-            console.log('Карта загружена, размеры:', mapImage.naturalWidth, 'x', mapImage.naturalHeight);
-            initMap();
-        };
-        
-        // На случай, если картинка уже загружена (из кеша)
-        if (mapImage.complete) {
-            mapImage.onload();
-        }
-        
-        // Обновляем при изменении размера окна
-        window.addEventListener('resize', () => {
-            // При уменьшении масштаба, если карта стала больше контейнера
-            const containerWidth = mapContainer.clientWidth;
-            const containerHeight = mapContainer.clientHeight;
-            const minScaleX = containerWidth / mapWidth;
-            const minScaleY = containerHeight / mapHeight;
-            const minScale = Math.min(minScaleX, minScaleY);
-            
-            if (scale < minScale) {
-                scale = minScale;
-            }
-            
-            constrainPosition();
-            updateTransform();
-            updateZoomInfo();
-        });
-        
-        // Запрещаем контекстное меню на карте
-        mapContainer.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            return false;
+            eventOverlay.style.cursor = 'grab';
+            loadAndCenterSVG();
+            updateTransform(true);
+
+            svgSize.width = 1;
+            svgSize.height = 1;
+            centerMap();
         });
     </script>
 </body>

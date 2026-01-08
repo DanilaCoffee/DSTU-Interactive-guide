@@ -64,7 +64,7 @@ body {
 }
 
 header {
-	position: fixed;
+	position: absolute;
 	left: 40px;
 	width: 1430px;
 	height: 89px;

@@ -42,40 +42,40 @@ advicesText.addEventListener('mouseleave', function() {
     advices.classList.add('active')
 })
 
-header.addEventListener('mouseenter', function() {
-    header.classList.remove('headerShort')
-})
+// header.addEventListener('mouseenter', function() {
+//     header.classList.remove('headerShort')
+// })
 
-header.addEventListener('mouseleave', function() {
-    if (scrollY > 100) {
-        let timer = setTimeout(() => {
-            header.classList.add('headerShort')
-        }, 500)
-        header.addEventListener('mouseenter', function() {
-            clearTimeout(timer)
-        })
-    }
-})
+// header.addEventListener('mouseleave', function() {
+//     if (scrollY > 100) {
+//         let timer = setTimeout(() => {
+//             header.classList.add('headerShort')
+//         }, 500)
+//         header.addEventListener('mouseenter', function() {
+//             clearTimeout(timer)
+//         })
+//     }
+// })
 
-window.addEventListener('scroll', () => {
+// window.addEventListener('scroll', () => {
     
-    scrollY = window.scrollY || window.pageYOffset
+//     scrollY = window.scrollY || window.pageYOffset
     
-    if (scrollY > 100) {
-        header.classList.add('headerShort')
-    } else {
-        header.classList.remove('headerShort')
-    }
-})
+//     if (scrollY > 100) {
+//         header.classList.add('headerShort')
+//     } else {
+//         header.classList.remove('headerShort')
+//     }
+// })
 
-updateHeaderPosition = () => {
-    const b1 = document.querySelector('.b1')
-    const header = document.querySelector('header')
+// updateHeaderPosition = () => {
+//     const b1 = document.querySelector('.b1')
+//     const header = document.querySelector('header')
     
-    const b1Rect = b1.getBoundingClientRect()
-    header.style.left = (b1Rect.left + 40) + 'px'
-}
+//     const b1Rect = b1.getBoundingClientRect()
+//     header.style.left = (b1Rect.left + 40) + 'px'
+// }
 
-window.addEventListener('load', updateHeaderPosition)
-window.addEventListener('resize', updateHeaderPosition)
-window.addEventListener('scroll', updateHeaderPosition)
+// window.addEventListener('load', updateHeaderPosition)
+// window.addEventListener('resize', updateHeaderPosition)
+// window.addEventListener('scroll', updateHeaderPosition)
