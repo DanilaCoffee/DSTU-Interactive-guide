@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+</head>
+<body>
+	<div class="auth-popup" id="authPopup">
+	    <div class="popup-content">
+	        <div class="auth-tabs">
+	            <button class="auth-tab active" data-tab="login">Вход</button>
+	            <button class="auth-tab" data-tab="register">Регистрация</button>
+	            <div class="tab-slider"></div>
+	        </div>
+	        
+	        <div class="auth-forms">
+	            <!-- Форма входа -->
+	            <form class="auth-form login-form active">
+	                <h3>Вход в аккаунт</h3>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <button type="submit" class="submit-btn">Войти</button>
+	            </form>
+	            
+	            <!-- Форма регистрации -->
+	            <form class="auth-form register-form">
+	                <h3>Создать аккаунт</h3>
+	                <input type="text" placeholder="Имя" required>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <input type="password" placeholder="Подтвердите пароль" required>
+	                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+	            </form>
+	        </div>
+	        
+	        <button class="close-popup">×</button>
+	    </div>
+	</div>
+	<div class="postsB1">
+		<header>
+			<nav>
+				<div class="logo"><img src="img/logo.png" alt=""></div>
+				<a href="map.html"><div class="navItem">карта</div></a>
+				<a href="posts.html"><div class="navItem">советы</div></a>
+				<div class="navItem">сервисы</div>
+				<div class="navItem">волонтёрство</div>
+			</nav>
+			<div class="profileBlock">
+				<div class="userImg"><img src="img/userImg.png" alt=""></div>
+				<div class="userName">
+					<span class="login-trigger">Вход</span> / <span class="register-trigger">Регистрация</span>
+				</div>
+			</div>
+		</header>
+		<div class="headerMobile">
+			<div class="headerMobileItem"><img src="img/Mmenu.png" alt=""></div>
+			<div class="headerMobileItem"><img src="img/logo.png" alt=""></div>
+			<div class="headerMobileItem"><img src="img/Muser.png" alt=""></div>
+		</div>
+		<div class="postsB1Text">Полезные советы</div>
+	</div>
+
+	<div class="postsB2">
+		<div class="main-section">
+            <div class="content-left">
+                <div class="search-section">
+                    <input type="text" class="search-box" placeholder="Поиск">
+                </div>
+                
+                <div class="tags-section">
+                    <div class="section-title">теги</div>
+                    <div class="tags-container">
+                        <div class="tag">стипендии</div>
+                        <div class="tag">общежитие</div>
+                        <div class="tag">финансовая поддержка</div>
+                        <div class="tag">творчество</div>
+                        <div class="tag">хобби</div>
+                        <div class="tag">чеклист</div>
+                        <div class="tag">учеба</div>
+                        <div class="tag">сессия</div>
+                        <div class="tag">экономия</div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="sort-section">
+                    <button class="create-post-btn">Написать пост</button>
+                    
+                    <div class="sort-title">Сортировать</div>
+                    
+                    <div class="sort-options">
+                        <div class="sort-option active">по дате публикации →</div>
+                        <div class="sort-option">по популярности</div>
+                        <div class="sort-option">по дате публикации</div>
+                        <div class="sort-option">по алфавиту</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="postsB3">
+		<div class="postsContainer">
+			<div class="postsWrapper">
+				<div class="postsPost">
+					<div class="postImgBlock">
+						<div class="postTags">
+							<div class="postTag">стипендии</div>
+							<div class="postTag">финансовая поддержка</div>
+						</div>
+						<a href="post.html">
+							<div class="postArrow">
+								<img src="img/ppArrow.png" alt="">
+							</div>
+						</a>
+					</div>
+					<div class="postText">Стипендии ДГТУ Какие бывают и как получить</div>
+				</div>
+				<div class="postsPost">
+					<div class="postImgBlock">
+						<div class="postTags">
+							<div class="postTag">стипендии</div>
+							<div class="postTag">финансовая поддержка</div>
+						</div>
+						<a href="post.html">
+							<div class="postArrow">
+								<img src="img/ppArrow.png" alt="">
+							</div>
+						</a>
+					</div>
+					<div class="postText">Стипендии ДГТУ Какие бывают и как получить</div>
+				</div>
+				<div class="postsPost">
+					<div class="postImgBlock">
+						<div class="postTags">
+							<div class="postTag">стипендии</div>
+							<div class="postTag">финансовая поддержка</div>
+						</div>
+						<a href="post.html">
+							<div class="postArrow">
+								<img src="img/ppArrow.png" alt="">
+							</div>
+						</a>
+					</div>
+					<div class="postText">Стипендии ДГТУ Какие бывают и как получить</div>
+				</div>
+				<div class="postsPost">
+					<div class="postImgBlock">
+						<div class="postTags">
+							<div class="postTag">стипендии</div>
+							<div class="postTag">финансовая поддержка</div>
+						</div>
+						<a href="post.html">
+							<div class="postArrow">
+								<img src="img/ppArrow.png" alt="">
+							</div>
+						</a>
+					</div>
+					<div class="postText">Стипендии ДГТУ Какие бывают и как получить</div>
+				</div>
+				<div class="postsPost">
+					<div class="postImgBlock">
+						<div class="postTags">
+							<div class="postTag">стипендии</div>
+							<div class="postTag">финансовая поддержка</div>
+						</div>
+						<a href="post.html">
+							<div class="postArrow">
+								<img src="img/ppArrow.png" alt="">
+							</div>
+						</a>
+					</div>
+					<div class="postText">Стипендии ДГТУ Какие бывают и как получить</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="postsFooter">
+		Путеводитель ДГТУ <img src="img/logo.png" alt=""> 2026
+	</div>
+
+	<script src="posts.js"></script>
+</body>
+</html>

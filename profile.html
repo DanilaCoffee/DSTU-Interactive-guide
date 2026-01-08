@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+	<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: #E7E7E7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+        	margin: 14px auto;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Секция профиля */
+        .profile-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .avatar-container {
+            flex-shrink: 0;
+        }
+        
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 6px 16px rgba(73, 135, 246, 0.15);
+        }
+        
+        .profile-content {
+            flex-grow: 1;
+        }
+        
+        .profile-name {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #222;
+        }
+        
+        .info-list {
+            list-style: none;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            color: #4987F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .info-text {
+            font-size: 17px;
+            color: #444;
+        }
+        
+        /* Секция постов */
+        .posts-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #222;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .posts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .post-card {
+            width: 180px;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(73, 135, 246, 0.12);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .post-caption {
+            padding: 12px;
+            flex-grow: 1;
+        }
+        
+        .post-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #222;
+            line-height: 1.3;
+        }
+        
+        .post-date {
+            font-size: 13px;
+            color: #888;
+        }
+        
+        .add-post-card {
+            width: 180px;
+            height: 200px;
+            background-color: #f8faff;
+            border: 2px dashed #d0e1ff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .add-post-card:hover {
+            background-color: #edf4ff;
+            border-color: #4987F6;
+        }
+        
+        .add-post-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #4987F6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .add-post-text {
+            font-weight: 600;
+            color: #4987F6;
+            font-size: 16px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                padding: 20px;
+                gap: 25px;
+            }
+            
+            .avatar {
+                width: 160px;
+                height: 160px;
+                align-self: center;
+            }
+            
+            .posts-container {
+                justify-content: center;
+            }
+            
+            .post-card, .add-post-card {
+                width: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-section {
+                padding: 15px;
+            }
+            
+            .posts-section {
+                padding: 20px;
+            }
+            
+            .post-card, .add-post-card {
+                width: 140px;
+            }
+            
+            .post-image {
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+	<div class="auth-popup" id="authPopup">
+	    <div class="popup-content">
+	        <div class="auth-tabs">
+	            <button class="auth-tab active" data-tab="login">Вход</button>
+	            <button class="auth-tab" data-tab="register">Регистрация</button>
+	            <div class="tab-slider"></div>
+	        </div>
+	        
+	        <div class="auth-forms">
+	            <!-- Форма входа -->
+	            <form class="auth-form login-form active">
+	                <h3>Вход в аккаунт</h3>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <button type="submit" class="submit-btn">Войти</button>
+	            </form>
+	            
+	            <!-- Форма регистрации -->
+	            <form class="auth-form register-form">
+	                <h3>Создать аккаунт</h3>
+	                <input type="text" placeholder="Имя" required>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <input type="password" placeholder="Подтвердите пароль" required>
+	                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+	            </form>
+	        </div>
+	        
+	        <button class="close-popup">×</button>
+	    </div>
+	</div>
+	<header>
+		<nav>
+			<div class="logo"><img src="img/logo.png" alt=""></div>
+			<a href="map.html"><div class="navItem">карта</div></a>
+			<a href="posts.html"><div class="navItem">советы</div></a>
+			<div class="navItem">сервисы</div>
+			<div class="navItem">волонтёрство</div>
+		</nav>
+		<div class="profileBlock">
+			<div class="userImg"><img src="img/userImg.png" alt=""></div>
+			<div class="userName">
+				<span class="login-trigger">Вход</span> / <span class="register-trigger">Регистрация</span>
+			</div>
+		</div>
+	</header>
+	<div class="headerMobile">
+		<div class="headerMobileItem"><img src="img/Mmenu.png" alt=""></div>
+		<div class="headerMobileItem"><img src="img/logo.png" alt=""></div>
+		<div class="headerMobileItem"><img src="img/Muser.png" alt=""></div>
+	</div>
+	<div class="container">
+        <!-- Секция профиля -->
+        <section class="profile-section">
+            <div class="avatar-container">
+                <img src="img/profileImg.png" alt="Аватар" class="avatar">
+            </div>
+            
+            <div class="profile-content">
+                <h1 class="profile-name">Иван Иванов</h1>
+                
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span class="info-icon"><i class="far fa-envelope"></i></span>
+                        <span class="info-text">электронная почта: Ivan@gmail.com</span>
+                    </li>
+                    
+                    <li class="info-item">
+                        <span class="info-icon"><i class="fas fa-phone"></i></span>
+                        <span class="info-text">телефон: +7 900 000 16 17</span>
+                    </li>
+                    
+                    <li class="info-item">
+                        <span class="info-icon"><i class="fas fa-university"></i></span>
+                        <span class="info-text">факультет: Институт сквозных технологий</span>
+                    </li>
+                    
+                    <li class="info-item">
+                        <span class="info-icon"><i class="fas fa-graduation-cap"></i></span>
+                        <span class="info-text">курс: 4</span>
+                    </li>
+                    
+                    <li class="info-item">
+                        <span class="info-icon"><i class="fas fa-users"></i></span>
+                        <span class="info-text">группа: Т.ВР41</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Секция постов -->
+        <section class="posts-section">
+            <h2 class="section-title1">Опубликованные посты</h2>
+            
+            <div class="posts-container">
+                <!-- Пост 1 -->
+                <div class="post-card">
+                    <img src="img/Mcard1Img.png" alt="" class="post-image">
+                    <div class="post-caption">
+                        <div class="post-title">Стипендии ДГТУ Какие бывают и как получить</div>
+                        <div class="post-date">15 окт 2025</div>
+                    </div>
+                </div>
+                
+                <!-- Пост 2 -->
+                <div class="post-card">
+                    <img src="img/Mcard2Img.png" alt="" class="post-image">
+                    <div class="post-caption">
+                        <div class="post-title">Творческие коллективы ДГТУ</div>
+                        <div class="post-date">8 окт 2025</div>
+                    </div>
+                </div>
+                
+                <!-- Пост 3 -->
+                <div class="post-card">
+                    <img src="img/Mcard3Img.png" alt="" class="post-image">
+                    <div class="post-caption">
+                        <div class="post-title">Чек-лист что взять с собой в общежитие</div>
+                        <div class="post-date">1 окт 2025</div>
+                    </div>
+                </div>
+                
+                <!-- Кнопка для новых постов (слева от существующих постов) -->
+                <div class="add-post-card" id="add-post-btn">
+                    <div class="add-post-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="add-post-text">Написать еще</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+	<script src="posts.js"></script>
+</body>
+</html>

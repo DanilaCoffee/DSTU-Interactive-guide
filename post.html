@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+	<style>
+        body {
+            background: #E7E7E7;
+            line-height: 1.6;
+            font-family: Menlo, sans-serif;
+        }
+
+        header {
+        	margin: 1vw auto 4vw auto;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 40px;
+            margin-top: 10vw;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .article-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .article-icon {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            margin-top: 25px;
+        }
+        
+        .article-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .main-content {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+        
+        .section-title2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .collective {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .collective-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .collective-description {
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .collective-leader {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .footer2 {
+        	max-width: 1200px;
+            margin: 0 auto;
+            height: 6vw;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-size: 1.3vw;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            display: flex;
+			justify-content: center;
+			align-items: center;
+        }
+
+		.footer2 img {
+			height: 2.5vw;
+			margin: -10px 7px 0 5px;
+		}
+        
+        
+        @media (max-width: 768px) {
+            .article-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .article-icon {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+	<div class="auth-popup" id="authPopup">
+	    <div class="popup-content">
+	        <div class="auth-tabs">
+	            <button class="auth-tab active" data-tab="login">Вход</button>
+	            <button class="auth-tab" data-tab="register">Регистрация</button>
+	            <div class="tab-slider"></div>
+	        </div>
+	        
+	        <div class="auth-forms">
+	            <!-- Форма входа -->
+	            <form class="auth-form login-form active">
+	                <h3>Вход в аккаунт</h3>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <button type="submit" class="submit-btn">Войти</button>
+	            </form>
+	            
+	            <!-- Форма регистрации -->
+	            <form class="auth-form register-form">
+	                <h3>Создать аккаунт</h3>
+	                <input type="text" placeholder="Имя" required>
+	                <input type="email" placeholder="Email" required>
+	                <input type="password" placeholder="Пароль" required>
+	                <input type="password" placeholder="Подтвердите пароль" required>
+	                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+	            </form>
+	        </div>
+	        
+	        <button class="close-popup">×</button>
+	    </div>
+	</div>
+	<header>
+		<nav>
+			<div class="logo"><img src="img/logo.png" alt=""></div>
+			<a href="map.html"><div class="navItem">карта</div></a>
+			<a href="posts.html"><div class="navItem">советы</div></a>
+			<div class="navItem">сервисы</div>
+			<div class="navItem">волонтёрство</div>
+		</nav>
+		<div class="profileBlock">
+			<div class="userImg"><img src="img/userImg.png" alt=""></div>
+			<div class="userName">
+				<span class="login-trigger">Вход</span> / <span class="register-trigger">Регистрация</span>
+			</div>
+		</div>
+	</header>
+	<div class="headerMobile">
+		<div class="headerMobileItem"><img src="img/Mmenu.png" alt=""></div>
+		<div class="headerMobileItem"><img src="img/logo.png" alt=""></div>
+		<div class="headerMobileItem"><img src="img/Muser.png" alt=""></div>
+	</div>
+
+	<div class="container">
+        <div class="article-header">
+            <img src="img/Mcard2Img.png" alt="Иконка статьи о творческих коллективах ДГТУ" class="article-icon">
+            <div>
+                <h1 class="article-title">Творческие коллективы ДГТУ<br>Где проявить таланты</h1>
+                <p class="main-content">
+                    Творческий центр ДГТУ — это живая душа университета, точка притяжения для креативных, дружных и неординарных личностей. Здесь кипит энергия, рождаются идеи и закаляется настоящая команда. Это 17 коллективов на любой вкус: от классического хора до экспериментального театра, от народных танцев до школы звукооператоров. А еще — битвы талантов, масштабные фестивали и возможность представлять вуз на всероссийском уровне.<br><br>
+                    Каждый, кто приходит сюда, находит своё место.
+                </p>
+            </div>
+        </div>
+        
+        <h2 class="section-title2">Театральное искусство и эстрада</h2>
+        
+        <div class="collective">
+            <h3 class="collective-title">Народный студенческий театр драмы и комедии им. Н.Н. Поэднышева</h3>
+            <p class="collective-description">Старейшая театральная легенда ДГТУ с богатым репертуаром из отечественной и зарубежной классики. Обладатель звания «Народный».</p>
+            <p class="collective-leader">Руководитель: Владимир Владимирович Коновалов</p>
+        </div>
+        
+        <div class="collective">
+            <h3 class="collective-title">Народный студенческий театр эстрадных миниатюр «Палант»</h3>
+            <p class="collective-description">Царство юмора, креатива и дружеской атмосферы. Идеальное место для тех, кто хочет создавать комедийные скетчи и stand-up.</p>
+            <p class="collective-leader">Руководитель: Горина Людмила Юрьевна</p>
+        </div>
+        
+        <div class="collective">
+            <h3 class="collective-title">Театр «633» (Проектный экспериментальный театр)</h3>
+            <p class="collective-description">Площадка для смелых творческих экспериментов. Обладатель Гран-при регионального этапа «Российской студенческой весны».</p>
+            <p class="collective-leader">Руководитель: Брицина Дарья Павловна</p>
+        </div>
+        
+        <div class="collective">
+            <h3 class="collective-title">Шоу-Группа «Кураж»</h3>
+            <p class="collective-description">Универсальный коллектив-оркестр, где соединяются вокал, хореография, инструментальная музыка и актёрское мастерство. Опытный коллектив с 18-летней историей.</p>
+            <p class="collective-leader">Руководитель: Барсельянц Андрей Хазаросович</p>
+        </div>
+    </div>
+    <div class="footer2">
+        Путеводитель ДГТУ <img src="img/logo.png" alt=""> 2026
+    </div>
+
+	<script src="posts.js"></script>
+	<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const collectives = document.querySelectorAll('.collective');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            collectives.forEach(collective => {
+                collective.style.opacity = '0';
+                collective.style.transform = 'translateY(20px)';
+                collective.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(collective);
+            });
+        });
+    </script>
+</body>
+</html>

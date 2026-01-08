@@ -25,21 +25,7 @@ window.addEventListener('load', () => {
     	document.querySelector('.userImg').style.transition = 'transform 0.2s ease-in-out'
     	document.querySelector('.userName').style.transition = 'transform 0.2s ease-in-out'
     	document.querySelector('header').style.opacity = '1'
-    	document.querySelector('.welcomeBlock').style.opacity = '1'
     }, 10)
-})
-
-const advices = document.querySelector('.advices')
-const advicesText = document.querySelector('.advicesText')
-const header = document.querySelector('header')
-let scrollY = 0
-
-advicesText.addEventListener('mouseenter', function() {
-    advices.classList.remove('active')
-})
-
-advicesText.addEventListener('mouseleave', function() {
-    advices.classList.add('active')
 })
 
 document.addEventListener('DOMContentLoaded', function() {
