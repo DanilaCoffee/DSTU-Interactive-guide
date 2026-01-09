@@ -99,14 +99,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    document.querySelector('.login-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        console.log('Форма входа отправлена');
-    });
-    
-    document.querySelector('.register-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        console.log('Форма регистрации отправлена');
-    });
 });

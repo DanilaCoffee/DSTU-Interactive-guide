@@ -281,7 +281,7 @@
 	<header>
 		<nav>
 			<div class="logo"><img src="img/logo.png" alt=""></div>
-			<a href="map.html"><div class="navItem">карта</div></a>
+			<a href="index.html"><div class="navItem">карта</div></a>
 			<a href="posts.html"><div class="navItem">советы</div></a>
 			<div class="navItem">сервисы</div>
 			<div class="navItem">волонтёрство</div>
@@ -289,8 +289,9 @@
 		<div class="profileBlock">
 			<div class="userImg"><img src="img/userImg.png" alt=""></div>
 			<div class="userName">
-				<span class="login-trigger">Вход</span> / <span class="register-trigger">Регистрация</span>
-			</div>
+                <span class="userNameContent dn"><a href="profile.html" class="userNameLink"></a></span>
+                <span class="login-trigger">Вход / </span><span class="register-trigger">Регистрация</span>
+            </div>
 		</div>
 	</header>
 	<div class="headerMobile">
@@ -326,7 +327,7 @@
                     
                     <li class="info-item">
                         <span class="info-icon"><i class="fas fa-graduation-cap"></i></span>
-                        <span class="info-text">курс: 4</span>
+                        <span class="info-text">статус: student</span>
                     </li>
                     
                     <li class="info-item">
@@ -381,5 +382,20 @@
     </div>
 
 	<script src="posts.js"></script>
+    <script src="requests.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'))
+
+            if (user) {
+                document.querySelector('.profile-name').innerHTML = user.full_name;
+                document.getElementsByClassName('info-text')[0].innerHTML = 'электронная почта: ' + user.email;
+                document.getElementsByClassName('info-text')[1].innerHTML = 'телефон: ' + user.phone;
+                document.getElementsByClassName('info-text')[2].innerHTML = 'факультет: ' + user.faculty;
+                document.getElementsByClassName('info-text')[3].innerHTML = 'статус: ' + user.role;
+                document.getElementsByClassName('info-text')[4].innerHTML = 'группа: ' + user.user_group;
+            }
+        });
+    </script>
 </body>
 </html>

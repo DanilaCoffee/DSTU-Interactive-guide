@@ -51,6 +51,14 @@ body {
     padding: 0;
 }
 
+.dn {
+	display: none;
+}
+
+.userNameContent a {
+	color: #4987F6;
+}
+
 .auth-popup {
     display: none;
     position: fixed;
