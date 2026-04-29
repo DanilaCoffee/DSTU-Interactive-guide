@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+</head>
+<body>
+  <header class="page-header">
+    <div class="page-header__logo"><img src="img/logo1.svg" alt=""></div>
+    <div class="page-header__controls">
+      <div class="invisible"></div>
+      <nav class="main-nav">
+        <a href="#" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+        <a href="#" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
+        <a href="#" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+        <a href="#" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
+      </nav>
+      <div class="page-header__actions">
+        <button class="btn btn--outline"><img src="img/i5.svg" alt=""> Вход</button>
+        <button class="btn btn--primary"><img src="img/i6.svg" alt=""> Регистрация</button>
+      </div>
+    </div>
+    <div class="page-header__burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__content">
+      <div class="hero__address">
+        <img src="img/addressicon.svg" alt=""> Ростов-на-Дону, пл. Гагарина, 1
+      </div>
+      <h1 class="hero__title">Твой личный гид <br><span>по кампусу ДГТУ</span></h1>
+      <p class="hero__description">
+        Интерактивная карта зданий, полезные лайфхаки, тесты и все активности ДГТУ — в одном месте.
+      </p>
+      <button class="hero__button">Исследовать кампус →</button>
+      <div class="hero__stats">
+        <div class="hero__stat-item"><span>165+</span> направлений</div>
+        <div class="hero__stat-item"><span>17K+</span> студентов</div>
+        <div class="hero__stat-item"><span>95</span> лет истории</div>
+      </div>
+    </div>
+    <div class="hero__image">
+      <img src="img/map.png" alt="Карта кампуса">
+    </div>
+  </section>
+
+  <section class="buildings">
+    <div class="buildings__header">
+      <h2>Исследуй здания кампуса <br><span>Найди нужный корпус и узнай, что внутри</span></h2>
+      <div class="carousel-controls">
+        <div class="carousel-controls__btn carousel-controls__btn--prev" id="prevBtn"></div>
+        <div class="carousel-controls__btn carousel-controls__btn--next" id="nextBtn"></div>
+      </div>
+    </div>
+    <div class="carousel-module">
+      <div class="carousel-viewport" id="carouselViewport">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="buildings__full-map">
+      <a href="#">Открыть полную карту →</a>
+    </div>
+  </section>
+
+  <section class="schedule-map">
+    <div class="schedule-map__info">
+      <div class="schedule-map__heading-group">
+        <div class="schedule-map__icon"><img src="img/locimg.png" alt=""></div>
+        <h2 class="schedule-map__title">
+          Расписание <br> прямо на карте
+        </h2>
+      </div>
+      <div class="schedule-map__description">
+        Откройте пару в личном кабинете и сразу увидите, где находится аудитория и как к ней пройти внутри корпуса.
+      </div>
+      <button class="schedule-map__button">Попробовать →</button>
+    </div>
+    <div class="schedule-map__preview">
+      [здесь позже будет схема]
+    </div>
+  </section>
+
+  <section class="student-story">
+    <h2 class="student-story__title">
+      Твоя студенческая история начинается здесь <br>
+      <span>Меньше суеты, больше вдохновения: учеба, люди, места и события в одном ритме</span>
+    </h2>
+    <div class="card-grid">
+      <article class="card">
+        <img class="card__image" src="img/b5i1.svg" alt="Карта кампуса">
+        <h3 class="card__title">Карта кампуса</h3>
+        <p class="card__description">
+          Интерактивная схема всех корпусов. Кликни — узнай расписание и режим работы.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+      <article class="card">
+        <img class="card__image" src="img/b5i2.svg" alt="Активности">
+        <h3 class="card__title">Активности</h3>
+        <p class="card__description">
+          Клубы, секции, мероприятия. Найди сообщество по интересам и узнай, как вступить.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+      <article class="card">
+        <img class="card__image" src="img/b5i3.svg" alt="Советы">
+        <h3 class="card__title">Советы</h3>
+        <p class="card__description">
+          Посты студентов и преподавателей о жизни в кампусе. Лайфхаки, места и полезные заметки.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+      <article class="card">
+        <img class="card__image" src="img/b5i4.svg" alt="Тесты">
+        <h3 class="card__title">Тесты</h3>
+        <p class="card__description">
+          Проверь знания о кампусе или пройди тест на ориентацию в первые дни.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+      <article class="card">
+        <img class="card__image" src="img/b5i5.svg" alt="Расписание">
+        <h3 class="card__title">Расписание</h3>
+        <p class="card__description">
+          Твои пары с навигацией. Нажми на занятие — и сразу увидишь, куда идти.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+      <article class="card">
+        <img class="card__image" src="img/b5i6.svg" alt="Создай контент">
+        <h3 class="card__title">Создай контент</h3>
+        <p class="card__description">
+          Делись советами и тестами с другими студентами и преподавателями. Публикации проверяются модераторами.
+        </p>
+        <a href="#" class="card__link">
+          <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="faculties">
+    <h2 class="faculties__title">
+      Факультеты и институты <br>
+      <span>Выбери своё направление — у нас 165+ программ обучения</span>
+    </h2>
+    <div class="faculties__grid">
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i1.svg" alt="Иконка авиастроения">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Авиастроение</h3>
+          <p class="faculty-card__subtitle">
+            Беспилотная, вертолётостроение
+            <div class="faculty-card__subtitle--drop">
+              Факультет готовит специалистов в области разработки  технологических процессов производства воздушных судов, ремонта и  обслуживания авиационной техники, создания и эксплуатации беспилотников.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i2.svg" alt="Иконка автоматизации">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Автоматизация, мехатроника и управление</h3>
+          <p class="faculty-card__subtitle">
+            Робототехника, программирование
+            <div class="faculty-card__subtitle--drop">
+              Факультет ведёт подготовку по машиностроительным направлениям для предприятий,  использующих автоматизированные, мехатронные, робототехнические и  электромеханические системы.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i3.svg" alt="Иконка агропромышленного">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Агропромышленный</h3>
+          <p class="faculty-card__subtitle">
+            Строительство зданий, водоснабжение
+            <div class="faculty-card__subtitle--drop">
+              Готовит востребованных специалистов для агропромышленного комплекса. Выпускники решают кейсы от ведущих компаний Юга России, факультет гарантирует  трудоустройство.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i4.svg" alt="Иконка безопасности">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Безопасность жизнедеятельности и инженерная экология</h3>
+          <p class="faculty-card__subtitle">
+            Охрана труда, экология
+            <div class="faculty-card__subtitle--drop">
+              Один из самых востребованных факультетов в ЮФО. Готовит специалистов по  пожарной и техносферной безопасности: безопасность труда, защита  окружающей среды.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i5.svg" alt="Иконка института живых систем">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Институт живых систем</h3>
+          <p class="faculty-card__subtitle">
+            Биоинженерия, медицина, ветеринария
+            <div class="faculty-card__subtitle--drop">
+              Первый в России факультет по болезням домашних питомцев для городской  ветеринарии. Направления: ветеринария, фармация, биоинженерия,  зоотехния.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i6.svg" alt="Иконка дорожно-транспортного">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Дорожно-транспортный</h3>
+          <p class="faculty-card__subtitle">
+            Дороги, транспортная инфраструктура
+            <div class="faculty-card__subtitle--drop">
+              Основан в 1944 году. Готовит специалистов по проектированию, строительству и  эксплуатации дорог, мостов, тоннелей, а также по геодезии и кадастру.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i7.svg" alt="Иконка новых технологий">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Инженерно-строительный</h3>
+          <p class="faculty-card__subtitle">
+            Строительство зданий, водоснабжение
+            <div class="faculty-card__subtitle--drop">
+              Более 60 преподавателей и 14 лабораторий. Готовит бакалавров, магистров и  аспирантов по трём направлениям. Гарантированы практика и  трудоустройство.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+      <article class="faculty-card">
+        <img class="faculty-card__icon" src="img/b6i8.svg" alt="Иконка технологий">
+        <div class="faculty-card__content">
+          <h3 class="faculty-card__title">Инновационный бизнес и менеджмент</h3>
+          <p class="faculty-card__subtitle">
+            Менеджмент, экономика, право
+            <div class="faculty-card__subtitle--drop">
+              Образован на базе выпускающих кафедр экономического профиля. Готовит по  направлениям: экономика, менеджмент, управление персоналом, финансы и  кредит.
+            </div>
+          </p>
+        </div>
+        <div class="faculty-card__link">
+          <img class="faculty-card__arrow" src="img/arrow2.svg" alt="Подробнее">
+        </div>
+      </article>
+    </div>
+    <div class="faculties__actions">
+      <button class="faculty-btn faculty-btn--secondary">
+        <img src="img/buttonicon1.svg" alt=""> Все факультеты и направления
+      </button>
+      <button class="faculty-btn faculty-btn--outline">
+        <img src="img/buttonicon2.svg" alt=""> Подробнее о поступлении
+      </button>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="footer-wrapper">
+      <div class="footer-col footer-col--brand">
+        <div class="footer-brand">
+          <div class="footer-brand__logo"><img src="img/logo2.svg" alt=""></div>
+          <p class="footer-brand__description">
+            Твой личный гид по кампусу Донского <br> государственного технического университета. <br>
+            Интерактивная карта, полезные советы и все о <br> студенческой жизни.
+          </p>
+          <div class="footer-brand__site">
+            Официальный сайт: <a href="https://donstu.ru" target="_blank">donstu.ru <img src="img/linkicon.svg" alt=""></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col footer-col--nav">
+        <div class="footer-nav">
+          <h4 class="footer-nav__title">Навигация</h4>
+          <div class="footer-nav__list">
+            <div class="footer-nav__item"><a href="#" class="footer-nav__link">Карта</a></div>
+            <div class="footer-nav__item"><a href="#" class="footer-nav__link">Советы</a></div>
+            <div class="footer-nav__item"><a href="#" class="footer-nav__link">Активности</a></div>
+            <div class="footer-nav__item"><a href="#" class="footer-nav__link">Тесты</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col footer-col--contacts">
+        <div class="footer-contacts">
+          <h4 class="footer-contacts__title">Контакты</h4>
+          <div class="footer-contacts__list">
+            <div class="footer-contacts__item">
+              <div class="footer-contacts__item--icon"><img src="img/fi1.svg" alt=""></div>
+              <div class="footer-contacts__item--content">
+                344003, Ростовская область, <br> г. Ростов-на-Дону, пл. Гагарина, 1
+              </div>
+              <div class="invisible"></div>
+            </div>
+            <div class="footer-contacts__item">
+              <div class="footer-contacts__item--icon"><img src="img/fi2.svg" alt=""></div>
+              <div class="footer-contacts__item--content">
+                8 800 100 19 30
+              </div>
+              <div class="invisible"></div>
+            </div>
+            <div class="footer-contacts__item">
+              <div class="footer-contacts__item--icon"><img src="img/fi3.svg" alt=""></div>
+              <div class="footer-contacts__item--content">
+                spu-33@donstu.ru
+              </div>
+              <div class="invisible"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-bottom__copyright">
+        © 2026 ДГТУ Путеводитель. Неофициальный студенческий проект.
+      </p>
+      <p class="footer-bottom__love">Сделано с <span>❤</span> для студентов ДГТУ</p>
+    </div>
+  </footer>
+	<script src="main.js"></script>
+</body>
+</html>
