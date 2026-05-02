@@ -18,7 +18,8 @@ let isSmartMode = true;
 
 const contentArray = ["Главный корпус <br><span>пл. Гагарина, 1</span>", "Учебный корпус №8 <br><span>пл. Гагарина, 1</span>", "Учебный корпус №2 <br><span>просп. Михаила Нагибина, 3А</span>", "Учебный корпус №7 <br><span>просп. Михаила Нагибина, 3Г</span>", "Учебный корпус №6 <br><span>пл. Гагарина, 1</span>", "Учебный корпус №3, 4, 5 <br><span>ул. Мечникова, 81</span>", "Конгресс-холл <br><span>пл. Гагарина, 1</span>", "Спортивный манеж <br><span>ул. Юфимцева, 16</span>", "Бассейн ДГТУ <br><span>пл. Гагарина, 1/1</span>", "Общежитие №2 <br><span>просп. Михаила Нагибина, 5</span>", "Общежитие №4 <br><span> ул. Текучёва, 145</span>", "Общежитие №10 <br><span>ул. Мечникова, 79Б</span>", "Общежитие №5 <br><span>ул. Мечникова 154А</span>", "Механические часы <br><span>пл. Гагарина, 1</span>", "Фонтан <br><span>пл. Гагарина, 1</span>"];
 
-for (let i = 1; i <= TOTAL_IMAGES; i++) {
+if (track) {
+    for (let i = 1; i <= TOTAL_IMAGES; i++) {
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
     const img = document.createElement('img');
@@ -30,6 +31,7 @@ for (let i = 1; i <= TOTAL_IMAGES; i++) {
     slide.appendChild(img);
     slide.appendChild(text);
     track.appendChild(slide);
+}
 }
 
 const DOTS_COUNT = 5;
@@ -262,15 +264,17 @@ function updateLayout() {
 if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
-window.addEventListener('resize', () => {
-    updateLayout();
-});
+if (track) {
+    window.addEventListener('resize', () => {
+        updateLayout();
+    });
 
-window.addEventListener('load', () => {
-    updateLayout();
-});
+    window.addEventListener('load', () => {
+        updateLayout();
+    });
 
-updateLayout();
+    updateLayout();
+}
 
 const facultyCards = document.querySelectorAll('.faculty-card');
 
