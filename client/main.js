@@ -321,3 +321,39 @@ burger.addEventListener('click', () => {
   header.classList.toggle('active');
   burger.classList.toggle('is-active');
 });
+
+const tabs = document.querySelectorAll('.tab');
+const slider = document.querySelector('.slider');
+
+function updateSlider(activeTab) {
+  const tabRect = activeTab.getBoundingClientRect();
+  const containerRect = activeTab.parentElement.getBoundingClientRect();
+  const offsetLeft = tabRect.left - containerRect.left;
+  slider.style.transform = `translateX(${offsetLeft - 5}px)`;
+  slider.style.width = `${tabRect.width}px`;
+}
+
+if (tabs && slider) {
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            updateSlider(tab);
+        });
+    });
+
+    const defaultActive = document.querySelector('.tab.active');
+    if (defaultActive) {
+      updateSlider(defaultActive);
+    } else {
+      tabs[0].classList.add('active');
+      updateSlider(tabs[0]);
+    }
+
+    window.addEventListener('resize', () => {
+      const currentActive = document.querySelector('.tab.active');
+      if (currentActive) updateSlider(currentActive);
+    });
+}
+
+
