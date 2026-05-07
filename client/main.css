@@ -3405,7 +3405,12 @@ a {
     color: #FFFFFF;
     font-family: "Inter Regular";
     font-size: 17px;
+    transition: background-color 150ms ease;
     cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #3F84FF;
 }
 
 .authorization__login {
