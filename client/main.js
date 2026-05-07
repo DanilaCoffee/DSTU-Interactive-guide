@@ -356,4 +356,300 @@ if (tabs && slider) {
     });
 }
 
+const profileButtonsContainer = document.querySelector('.profile-buttons');
+let buttons = []
+if (profileButtonsContainer) {
+    buttons = profileButtonsContainer.querySelectorAll('.profile-buttons__item');
+}
+const scheduleSection = document.querySelector('.profile-sections__schedule');
+const adviceSection = document.querySelector('.profile-sections__adviсe');
+const testsSection = document.querySelector('.profile-sections__tests');
+const settingsSection = document.querySelector('.profile-sections__settings');
 
+const sections = [scheduleSection, adviceSection, testsSection, settingsSection];
+
+function setActiveButton(activeButton) {
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+    activeButton.classList.add('active');
+}
+
+function setActiveSection(activeSection) {
+    sections.forEach(section => {
+        if (section) {
+            section.classList.remove('active');
+        }
+    });
+    if (activeSection) {
+        activeSection.classList.add('active');
+    }
+}
+
+if (buttons.length != 0) {
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            setActiveButton(this);
+            setActiveSection(sections[index]);
+        });
+    });
+}
+
+const authorizationTabs = document.querySelectorAll('.authorization__switch--tab');
+const authorizationSlider = document.querySelector('.authorization__switch--slider');
+const loginBlock = document.querySelector('.authorization__login');
+const registrationBlock = document.querySelector('.authorization__registration');
+
+function authorizationUpdateSlider(activeTab) {
+    const tabRect = activeTab.getBoundingClientRect();
+    const containerRect = activeTab.parentElement.getBoundingClientRect();
+    const offsetLeft = tabRect.left - containerRect.left;
+    authorizationSlider.style.transform = `translateX(${offsetLeft - 5}px)`;
+    authorizationSlider.style.width = `${tabRect.width}px`;
+}
+
+function switchContent(tabType) {
+    loginBlock.classList.remove('active');
+    registrationBlock.classList.remove('active');
+    
+    if (tabType === 'login') {
+        loginBlock.classList.add('active');
+    } else if (tabType === 'registration') {
+        registrationBlock.classList.add('active');
+    }
+}
+
+if (authorizationTabs && authorizationSlider && loginBlock && registrationBlock) {
+    authorizationTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            authorizationTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            authorizationUpdateSlider(tab);
+            const tabType = tab.getAttribute('data-tab');
+            switchContent(tabType);
+        });
+    });
+
+    const defaultActive = document.querySelector('.authorization__switch--tab.active');
+    if (defaultActive) {
+        authorizationUpdateSlider(defaultActive);
+        const tabType = defaultActive.getAttribute('data-tab');
+        switchContent(tabType);
+    } else {
+        authorizationTabs[0].classList.add('active');
+        authorizationUpdateSlider(authorizationTabs[0]);
+        const tabType = authorizationTabs[0].getAttribute('data-tab');
+        switchContent(tabType);
+    }
+
+    window.addEventListener('resize', () => {
+        const currentActive = document.querySelector('.authorization__switch--tab.active');
+        if (currentActive) authorizationUpdateSlider(currentActive);
+    });
+}
+
+const passwordInput = document.getElementById('login-pass');
+const toggleButton = document.getElementById('togglePassword');
+
+if (passwordInput && toggleButton) {
+    const eyeClosed = toggleButton.querySelector('.eye-closed');
+    const eyeOpen = toggleButton.querySelector('.eye-open');
+    eyeOpen.style.display = 'none';
+
+    toggleButton.addEventListener('click', function() {
+        const currentType = passwordInput.getAttribute('type');
+        const newType = currentType === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', newType);
+
+        if (newType === 'text') {
+            eyeClosed.style.display = 'none';
+            eyeOpen.style.display = 'block';
+        } else {
+            eyeClosed.style.display = 'block';
+            eyeOpen.style.display = 'none';
+        }
+    });
+}
+
+const passwordInputRegistration = document.getElementById('registration-pass');
+const toggleButtonRegistration = document.getElementById('togglePasswordRegistration');
+
+if (passwordInputRegistration && toggleButtonRegistration) {
+    const eyeClosedRegistration = toggleButtonRegistration.querySelector('.eye-closed--Registration');
+    const eyeOpenRegistration = toggleButtonRegistration.querySelector('.eye-open--Registration');
+    eyeOpenRegistration.style.display = 'none';
+
+    toggleButtonRegistration.addEventListener('click', function() {
+        const currentType = passwordInputRegistration.getAttribute('type');
+        const newType = currentType === 'password' ? 'text' : 'password';
+        passwordInputRegistration.setAttribute('type', newType);
+
+        if (newType === 'text') {
+            eyeClosedRegistration.style.display = 'none';
+            eyeOpenRegistration.style.display = 'block';
+        } else {
+            eyeClosedRegistration.style.display = 'block';
+            eyeOpenRegistration.style.display = 'none';
+        }
+    });
+}
+
+const radioButtons = document.querySelectorAll('input[name="registration-role"]');
+const studentTab = document.querySelector('.student-tab');
+const lecturerTab = document.querySelector('.lecturer-tab');
+
+if (radioButtons.length != 0) {
+    radioButtons[0].addEventListener('change', function() {
+        if (radioButtons[0].checked) {
+            studentTab.classList.add('active');
+            lecturerTab.classList.remove('active');
+        }
+    });
+
+    radioButtons[1].addEventListener('change', function() {
+        if (radioButtons[1].checked) {
+            lecturerTab.classList.add('active');
+            studentTab.classList.remove('active');
+        }
+    });
+}
+
+function openModal(activeTab = 'login') {
+    const modal = document.querySelector('.modal');
+    const body = document.body;
+    const loginTab = document.querySelector('.authorization__switch--tab[data-tab="login"]');
+    const registrationTab = document.querySelector('.authorization__switch--tab[data-tab="registration"]');
+    const loginBlock = document.querySelector('.authorization__login');
+    const registrationBlock = document.querySelector('.authorization__registration');
+    const authorizationSlider = document.querySelector('.authorization__switch--slider');
+    
+    if (!modal) return;
+
+    modal.style.display = 'block';
+    body.style.height = '100vh';
+    body.style.overflow = 'hidden';
+    
+    if (activeTab === 'login') {
+        loginTab.classList.add('active');
+        registrationTab.classList.remove('active');
+        loginBlock.classList.add('active');
+        registrationBlock.classList.remove('active');
+    } else if (activeTab === 'registration') {
+        registrationTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registrationBlock.classList.add('active');
+        loginBlock.classList.remove('active');
+    }
+    
+    const currentActive = document.querySelector('.authorization__switch--tab.active');
+    if (currentActive && authorizationSlider) {
+        const tabRect = currentActive.getBoundingClientRect();
+        const containerRect = currentActive.parentElement.getBoundingClientRect();
+        const offsetLeft = tabRect.left - containerRect.left;
+        authorizationSlider.style.transform = `translateX(${offsetLeft - 5}px)`;
+        authorizationSlider.style.width = `${tabRect.width}px`;
+    }
+}
+
+function closeModal() {
+    const modal = document.querySelector('.modal');
+    const body = document.body;
+    
+    if (!modal) return;
+    modal.style.display = 'none';
+    body.style.height = '';
+    body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginButton = document.querySelector('.btn--outline');
+    if (loginButton) {
+        loginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('login');
+        });
+    }
+    
+    const registrationButton = document.querySelector('.btn--primary');
+    if (registrationButton) {
+        registrationButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal('registration');
+        });
+    }
+    
+    const closeButton = document.querySelector('.authorization__close');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            closeModal();
+        });
+    }
+    
+    const modal = document.querySelector('.modal');
+    const authorizationBlock = document.querySelector('.authorization');
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal && authorizationBlock) {
+                if (!authorizationBlock.contains(e.target)) {
+                    closeModal();
+                }
+            }
+        });
+    }
+    
+    const authorizationTabs = document.querySelectorAll('.authorization__switch--tab');
+    const authorizationSlider = document.querySelector('.authorization__switch--slider');
+    const loginBlock = document.querySelector('.authorization__login');
+    const registrationBlock = document.querySelector('.authorization__registration');
+    
+    function authorizationUpdateSlider(activeTab) {
+        const tabRect = activeTab.getBoundingClientRect();
+        const containerRect = activeTab.parentElement.getBoundingClientRect();
+        const offsetLeft = tabRect.left - containerRect.left;
+        authorizationSlider.style.transform = `translateX(${offsetLeft - 5}px)`;
+        authorizationSlider.style.width = `${tabRect.width}px`;
+    }
+    
+    function switchContent(tabType) {
+        loginBlock.classList.remove('active');
+        registrationBlock.classList.remove('active');
+        
+        if (tabType === 'login') {
+            loginBlock.classList.add('active');
+        } else if (tabType === 'registration') {
+            registrationBlock.classList.add('active');
+        }
+    }
+    
+    if (authorizationTabs && authorizationSlider && loginBlock && registrationBlock) {
+        authorizationTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                authorizationTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                authorizationUpdateSlider(tab);
+                const tabType = tab.getAttribute('data-tab');
+                switchContent(tabType);
+            });
+        });
+        
+        const defaultActive = document.querySelector('.authorization__switch--tab.active');
+        if (defaultActive) {
+            authorizationUpdateSlider(defaultActive);
+            const tabType = defaultActive.getAttribute('data-tab');
+            switchContent(tabType);
+        } else if (authorizationTabs[0]) {
+            authorizationTabs[0].classList.add('active');
+            authorizationUpdateSlider(authorizationTabs[0]);
+            const tabType = authorizationTabs[0].getAttribute('data-tab');
+            switchContent(tabType);
+        }
+        
+        window.addEventListener('resize', () => {
+            if (modal && modal.style.display === 'block') {
+                const currentActive = document.querySelector('.authorization__switch--tab.active');
+                if (currentActive) authorizationUpdateSlider(currentActive);
+            }
+        });
+    }
+});

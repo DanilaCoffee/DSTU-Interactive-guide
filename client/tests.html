@@ -15,7 +15,7 @@
     <div class="page-header__controls">
       <div class="invisible"></div>
       <nav class="main-nav">
-        <a href="#" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+        <a href="profile.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
         <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
         <a href="adviсe.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
         <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
@@ -31,6 +31,113 @@
       <span></span>
     </div>
   </header>
+
+  <div class="modal">
+    <div class="authorization">
+      <div class="authorization__close"><img src="img/x.svg" alt=""></div>
+      <div class="authorization__logo"><img src="img/logomini.svg" alt=""></div>
+      <div class="authorization__title">Добро пожаловать!</div>
+      <div class="authorization__description">
+        Войдите, чтобы видеть расписание на карте, писать тесты и посты
+      </div>
+      <div class="authorization__switch">
+        <button class="authorization__switch--tab active" data-tab="login">Вход</button>
+        <button class="authorization__switch--tab" data-tab="registration">Регистрация</button>
+        <div class="authorization__switch--slider"></div>
+      </div>
+      <div class="authorization__login active">
+        <form action="" class="authorization__form">
+          <label for="login-email">Email</label>
+          <input class="form-input" type="email" id="login-email" placeholder="ivan@donstu.ru">
+          <label for="login-pass">Пароль</label>
+          <div class="password-wrapper">
+            <input class="form-input form-input--pass" type="password" id="login-pass" placeholder="••••••••">
+            <button type="button" id="togglePassword" class="password-toggle">
+              <img class="eye-icon eye-closed" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open" src="img/eye.svg" alt="">
+            </button>
+          </div>
+          <div class="flex">
+            <div class="remember-me"><input type="checkbox">Запомнить меня</div>
+            <div class="forgot-password"><a href="#">Забыли пароль?</a></div>
+          </div>
+          <input class="form-submit" type="submit" value="Войти">
+        </form>
+      </div>
+      <div class="authorization__registration">
+        <form action="" class="authorization__form">
+          <div class="flex-registration">
+            <div class="authorization__form--name">
+              <label for="registration-name">Имя</label>
+              <input class="form-input" type="text" id="registration-name" placeholder="Иван">
+            </div>
+            <div class="authorization__form--surname">
+              <label for="registration-surname">Фамилия</label>
+              <input class="form-input" type="text" id="registration-surname" placeholder="Иванов">
+            </div>
+          </div>
+          <label for="registration-email">Email</label>
+          <input class="form-input" type="email" id="registration-email" placeholder="ivan@donstu.ru">
+          <label for="registration-pass">Пароль</label>
+          <div class="password-wrapper">
+            <input class="form-input form-input--pass" type="password" id="registration-pass" placeholder="••••••••">
+            <button type="button" id="togglePasswordRegistration" class="password-toggle">
+              <img class="eye-icon eye-closed--Registration" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open--Registration" src="img/eye.svg" alt="">
+            </button>
+          </div>
+          <div class="registration-role">
+            <div class="select-student"><input type="radio" name="registration-role" id="registration-role--student" checked>
+              <label for="registration-role--student">Я студент</label>
+            </div>
+            <div class="select-lecturer"><input type="radio" name="registration-role" id="registration-role--lecturer">
+              <label for="registration-role--lecturer">Я преподаватель</label>
+            </div>
+          </div>
+          <div class="student-tab active">
+            <div class="flex">
+              <div class="authorization__form--group">
+                <label for="registration-group">Группа</label>
+                <input class="form-input" type="text" id="registration-group" placeholder="ИТД11">
+              </div>
+              <div class="authorization__form--year">
+                <label for="registration-year">Курс</label>
+                <select class="form-input" name="years" id="registration-year">
+                  <option value="year1">1 курс</option>
+                  <option value="year2">2 курс</option>
+                  <option value="year3">3 курс</option>
+                  <option value="year4">4 курс</option>
+                  <option value="year5">Магистратура 1 курс</option>
+                  <option value="year6">Магистратура 2 курс</option>
+                </select>
+              </div>
+            </div>
+            <label for="registration-faculty">Факультет</label>
+              <select class="form-input" name="years" id="registration-faculty">
+                <option disabled selected>Выберите факультет</option>
+                <option value="faculty2">Откуда я блять знаю</option>
+                <option value="faculty3">Какие там есть факультеты</option>
+                <option value="faculty4">Ебал я в рот</option>
+                <option value="faculty5">Их искать</option>
+              </select>
+          </div>
+          <div class="lecturer-tab">
+            <div class="flex">
+              <div class="authorization__form--department">
+                <label for="registration-department">Кафедра</label>
+                <input class="form-input" type="text" id="registration-department" placeholder="Высшая математика">
+              </div>
+              <div class="authorization__form--position">
+                <label for="registration-position">Должность</label>
+                <input class="form-input" type="text" id="registration-position" placeholder="Доцент">
+              </div>
+            </div>
+          </div>
+          <input class="form-submit" type="submit" value="Зарегистрироваться">
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="adviсe-nav">
     <a href="index.html">Главная</a><span></span> Тесты
@@ -123,7 +230,7 @@
         <div class="footer-nav">
           <h4 class="footer-nav__title">Навигация</h4>
           <div class="footer-nav__list">
-            <div class="footer-nav__item"><a href="#" class="footer-nav__link">Карта</a></div>
+            <div class="footer-nav__item"><a href="profile.html" class="footer-nav__link">Карта</a></div>
             <div class="footer-nav__item"><a href="adviсe.html" class="footer-nav__link">Советы</a></div>
             <div class="footer-nav__item"><a href="activity.html" class="footer-nav__link">Активности</a></div>
             <div class="footer-nav__item"><a href="tests.html" class="footer-nav__link">Тесты</a></div>
