@@ -653,3 +653,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.querySelectorAll('.adviсe-search__button--new, .adviсe-search__button--popular').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.adviсe-search__button--new.active, .adviсe-search__button--popular.active')
+      .forEach(active => active.classList.remove('active'));
+    button.classList.add('active');
+  });
+});
