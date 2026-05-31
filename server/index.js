@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
-const cors = require('cors');
+// const cors = require('cors');
 const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const schedule = require('./schedule.js');
@@ -12,12 +12,12 @@ const schedule = require('./schedule.js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: '88.218.170.219',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// app.use(cors({
+//     origin: '88.218.170.219',
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use(express.json());
 
