@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+    <link rel="stylesheet" href="main.css">
+    <title>ДГТУ - Интерактивный путеводитель по университету</title>
+    <style>
+        * {
+            user-select: none;
+        }
+
+        html {
+            scrollbar-width: none;
+        }
+
+        body {
+            background: #FFFFFF;
+            min-height: 100vh;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 98vw;
+            margin: auto;
+            height: 100vh;
+            border-radius: 9px;
+            overflow: hidden;
+            background: #c3e8f0;
+        }
+
+        .map-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0;
+            cursor: grab;
+            transition: transform 0.1s ease-out;
+        }
+
+        .map-container:active {
+            cursor: grabbing;
+        }
+
+        .map-bg {
+            background-image: url('img/map.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .points-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+            pointer-events: none;
+        }
+
+        .point {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+        }
+
+        .point-dot {
+            width: 8px;
+            height: 8px;
+            background: #6099FE;
+            border: 1px solid white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .point-label {
+            position: absolute;
+            left: 15px;
+            top: -8px;
+            background: rgba(255,255,255,0.3);
+            color: #1E3A5F;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 4px;
+            white-space: nowrap;
+            font-family: "Inter Medium";
+            backdrop-filter: blur(2px);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 60px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .schedule-switch {
+            background: #FFFFFF;
+            color: #1E3A5F;
+            font-family: "Inter Medium";
+            font-size: 17px;
+            height: 44px;
+            padding: 0 16px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls button {
+            background: #FFFFFF;
+            border: none;
+            color: #1E3A5F;
+            font-family: "Inter Medium";
+            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .controls button img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .switch {
+            display: inline-block;
+            position: relative;
+            width: 34px;
+            height: 16px;
+            margin-left: 10px;
+        }
+
+        .slider2 {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 22px;
+        }
+
+        .slider2:before {
+            position: absolute;
+            content: "";
+            height: 11px;
+            width: 11px;
+            left: 2.5px;
+            bottom: 2.5px;
+            background-color: white;
+            transition: 0.2s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider2 {
+            background-color: #6099FE;
+        }
+
+        input:checked + .slider2:before {
+            transform: translateX(18px);
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+    <div class="page-header__logo">
+      <a href="index.html"><img src="img/logo1.svg" alt=""></a>
+    </div>
+    <div class="page-header__controls">
+      <div class="invisible"></div>
+      <nav class="main-nav">
+        <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+        <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
+        <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+        <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
+      </nav>
+      <div class="page-header__actions">
+        <button class="btn btn--outline"><img src="img/i5.svg" alt=""> Вход</button>
+        <button class="btn btn--primary"><img src="img/i6.svg" alt=""> Регистрация</button>
+        <button class="btn btn--lk"><img src="img/lkicon.svg" alt="">
+          <a href="profile.html">Личный кабинет</a>
+        </button>
+        <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
+      </div>
+    </div>
+    <div class="page-header__burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <div class="modal">
+    <div class="authorization">
+      <div class="authorization__close"><img src="img/x.svg" alt=""></div>
+      <div class="authorization__logo"><img src="img/logomini.svg" alt=""></div>
+      <div class="authorization__title">Добро пожаловать!</div>
+      <div class="authorization__description">
+        Войдите, чтобы видеть расписание на карте, писать тесты и посты
+      </div>
+      <div class="authorization__switch">
+        <button class="authorization__switch--tab active" data-tab="login">Вход</button>
+        <button class="authorization__switch--tab" data-tab="registration">Регистрация</button>
+        <div class="authorization__switch--slider"></div>
+      </div>
+      <div class="authorization__login active">
+        <form action="" class="authorization__form">
+          <label for="login-email">Email</label>
+          <input class="form-input" type="email" id="login-email" placeholder="ivan@donstu.ru">
+          <label for="login-pass">Пароль</label>
+          <div class="password-wrapper">
+            <input class="form-input form-input--pass" type="password" id="login-pass" placeholder="••••••••">
+            <button type="button" id="togglePassword" class="password-toggle">
+              <img class="eye-icon eye-closed" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open" src="img/eyeclosed.svg" alt="">
+            </button>
+          </div>
+          <div class="flex">
+            <div class="remember-me"><input type="checkbox">Запомнить меня</div>
+            <div class="forgot-password"><a href="#">Забыли пароль?</a></div>
+          </div>
+          <input class="form-submit" type="submit" value="Войти">
+        </form>
+      </div>
+      <div class="authorization__registration">
+        <form action="" class="authorization__form">
+          <div class="flex-registration">
+            <div class="authorization__form--name">
+              <label for="registration-name">Имя</label>
+              <input class="form-input" type="text" id="registration-name" placeholder="Иван">
+            </div>
+            <div class="authorization__form--surname">
+              <label for="registration-surname">Фамилия</label>
+              <input class="form-input" type="text" id="registration-surname" placeholder="Иванов">
+            </div>
+          </div>
+          <label for="registration-patronymic">Отчество</label>
+          <input class="form-input" type="text" id="registration-patronymic" placeholder="Иванович">
+          <label for="registration-email">Email</label>
+          <input class="form-input" type="email" id="registration-email" placeholder="ivan@donstu.ru">
+          <label for="registration-pass">Пароль</label>
+          <div class="password-wrapper">
+            <input class="form-input form-input--pass" type="password" id="registration-pass" placeholder="••••••••">
+            <button type="button" id="togglePasswordRegistration" class="password-toggle">
+              <img class="eye-icon eye-closed--Registration" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open--Registration" src="img/eyeclosed.svg" alt="">
+            </button>
+          </div>
+          <div class="registration-role">
+            <div class="select-student"><input type="radio" name="registration-role" id="registration-role--student" checked>
+              <label for="registration-role--student">Я студент</label>
+            </div>
+            <div class="select-lecturer"><input type="radio" name="registration-role" id="registration-role--lecturer">
+              <label for="registration-role--lecturer">Я преподаватель</label>
+            </div>
+          </div>
+          <div class="student-tab active">
+            <div class="flex">
+              <div class="authorization__form--group">
+                <label for="registration-group">Группа</label>
+                <input class="form-input" type="text" id="registration-group" placeholder="ИТД11">
+              </div>
+              <div class="authorization__form--year">
+                <label for="registration-year">Курс</label>
+                <select class="form-input" name="years" id="registration-year">
+                  <option value="year1">1 курс</option>
+                  <option value="year2">2 курс</option>
+                  <option value="year3">3 курс</option>
+                  <option value="year4">4 курс</option>
+                  <option value="year5">Магистратура 1 курс</option>
+                  <option value="year6">Магистратура 2 курс</option>
+                </select>
+              </div>
+            </div>
+            <label for="registration-faculty">Факультет</label>
+              <select class="form-input" name="years" id="registration-faculty">
+                <option disabled selected>Выберите факультет</option>
+                <option value="faculty1">Авиастроение</option>
+                <option value="faculty2">Автоматизация, мехатроника и управление</option>
+                <option value="faculty3">Агропромышленный</option>
+                <option value="faculty4">Безопасность жизнедеятельности и инженерная экология</option>
+                <option value="faculty5">Дорожно-транспортный</option>
+                <option value="faculty6">Инженерно-строительный</option>
+                <option value="faculty7">Информатика и вычислительная техника</option>
+                <option value="faculty8">Кораблестроение и морская техника</option>
+                <option value="faculty9">Машиностроительные технологии и оборудование</option>
+                <option value="faculty10">Приборостроение и техническое регулирование</option>
+                <option value="faculty11">Промышленное и гражданское строительство</option>
+                <option value="faculty12">Технология машиностроения</option>
+                <option value="faculty13">Транспорт, сервис и эксплуатация</option>
+                <option value="faculty14">Энергетика и нефтегазопромышленность</option>
+                <option value="faculty15">Биоинженерия и ветеринарная медицина</option>
+                <option value="faculty16">Инновационный бизнес и менеджмент</option>
+                <option value="faculty17">Медиакоммуникации и мультимедийные технологии</option>
+                <option value="faculty18">Международный</option>
+                <option value="faculty19">Психология, педагогика и дефектология</option>
+                <option value="faculty20">Сервис и туризм</option>
+                <option value="faculty21">Социально-гуманитарный</option>
+                <option value="faculty22">Школа архитектуры, дизайна и искусств</option>
+                <option value="faculty23">Юридический</option>
+              </select>
+          </div>
+          <div class="lecturer-tab">
+            <div class="flex">
+              <div class="authorization__form--department">
+                <label for="registration-department">Кафедра</label>
+                <input class="form-input" type="text" id="registration-department" placeholder="Высшая математика">
+              </div>
+              <div class="authorization__form--position">
+                <label for="registration-position">Должность</label>
+                <input class="form-input" type="text" id="registration-position" placeholder="Доцент">
+              </div>
+            </div>
+          </div>
+          <input class="form-submit" type="submit" value="Зарегистрироваться">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-wrapper">
+        <div class="map-container" id="mapContainer">
+            <div class="map-bg" id="mapBg"></div>
+            <div class="points-layer" id="pointsLayer"></div>
+        </div>
+        <div class="controls">
+            <div class="schedule-switch">Моё расписание
+                <label class="switch">
+                    <input id="switch-view" type="checkbox" checked>
+                    <span class="slider2"></span>
+                </label>
+            </div>
+            <button id="zoomIn">+</button>
+            <button id="zoomOut">-</button>
+            <button id="reset" class="reset-btn"><img src="img/resize.svg" alt=""></button>
+        </div>
+  </div>
+  <script src="form.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>

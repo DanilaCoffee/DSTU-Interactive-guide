@@ -16,14 +16,16 @@
       <div class="page-header__controls">
         <div class="invisible"></div>
         <nav class="main-nav">
-          <a href="profile.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+          <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
           <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
-          <a href="adviсe.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+          <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
           <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
         </nav>
         <div class="page-header__actions">
           <button class="btn btn--outline"><img src="img/i5.svg" alt=""> Вход</button>
           <button class="btn btn--primary"><img src="img/i6.svg" alt=""> Регистрация</button>
+          <button class="btn btn--lk"><img src="img/lkicon.svg" alt=""><a href="profile.html">Личный кабинет</a></button>
+        <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
         </div>
       </div>
       <div class="page-header__burger">
@@ -55,7 +57,7 @@
               <input class="form-input form-input--pass" type="password" id="login-pass" placeholder="••••••••">
               <button type="button" id="togglePassword" class="password-toggle">
                 <img class="eye-icon eye-closed" src="img/eye.svg" alt="">
-                <img class="eye-icon eye-open" src="img/eye.svg" alt="">
+                <img class="eye-icon eye-open" src="img/eyeclosed.svg" alt="">
               </button>
             </div>
             <div class="flex">
@@ -77,6 +79,8 @@
                 <input class="form-input" type="text" id="registration-surname" placeholder="Иванов">
               </div>
             </div>
+            <label for="registration-patronymic">Отчество</label>
+            <input class="form-input" type="text" id="registration-patronymic" placeholder="Иванович">
             <label for="registration-email">Email</label>
             <input class="form-input" type="email" id="registration-email" placeholder="ivan@donstu.ru">
             <label for="registration-pass">Пароль</label>
@@ -84,7 +88,7 @@
               <input class="form-input form-input--pass" type="password" id="registration-pass" placeholder="••••••••">
               <button type="button" id="togglePasswordRegistration" class="password-toggle">
                 <img class="eye-icon eye-closed--Registration" src="img/eye.svg" alt="">
-                <img class="eye-icon eye-open--Registration" src="img/eye.svg" alt="">
+                <img class="eye-icon eye-open--Registration" src="img/eyeclosed.svg" alt="">
               </button>
             </div>
             <div class="registration-role">
@@ -167,7 +171,7 @@
       <div class="adviсe-header__title">
         Тесты <span>Найди свое призвание в кампусе</span>
       </div>
-      <button class="adviсe-header__button"><img src="img/plus.svg" alt="">Создать тест</button>
+      <!-- <button class="adviсe-header__button"><img src="img/plus.svg" alt="">Создать тест</button> -->
       <div class="adviсe-header__img"><img src="img/books2.svg" alt=""></div>
     </section>
 
@@ -251,8 +255,8 @@
         <div class="footer-nav">
           <h4 class="footer-nav__title">Навигация</h4>
           <div class="footer-nav__list">
-            <div class="footer-nav__item"><a href="profile.html" class="footer-nav__link">Карта</a></div>
-            <div class="footer-nav__item"><a href="adviсe.html" class="footer-nav__link">Советы</a></div>
+            <div class="footer-nav__item"><a href="map.html" class="footer-nav__link">Карта</a></div>
+            <div class="footer-nav__item"><a href="advice.html" class="footer-nav__link">Советы</a></div>
             <div class="footer-nav__item"><a href="activity.html" class="footer-nav__link">Активности</a></div>
             <div class="footer-nav__item"><a href="tests.html" class="footer-nav__link">Тесты</a></div>
           </div>
@@ -295,5 +299,7 @@
     </div>
   </footer>
   <script src="main.js"></script>
+  <script src="tests.js"></script>
+  <script src="form.js"></script>
 </body>
 </html>

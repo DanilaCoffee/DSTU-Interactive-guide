@@ -9,18 +9,24 @@
 </head>
 <body>
   <header class="page-header">
-    <div class="page-header__logo"><img src="img/logo1.svg" alt=""></div>
+    <div class="page-header__logo">
+      <a href="index.html"><img src="img/logo1.svg" alt=""></a>
+    </div>
     <div class="page-header__controls">
       <div class="invisible"></div>
       <nav class="main-nav">
-        <a href="profile.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+        <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
         <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
-        <a href="adviсe.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+        <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
         <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
       </nav>
       <div class="page-header__actions">
         <button class="btn btn--outline"><img src="img/i5.svg" alt=""> Вход</button>
         <button class="btn btn--primary"><img src="img/i6.svg" alt=""> Регистрация</button>
+        <button class="btn btn--lk"><img src="img/lkicon.svg" alt="">
+          <a href="profile.html">Личный кабинет</a>
+        </button>
+        <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
       </div>
     </div>
     <div class="page-header__burger">
@@ -52,7 +58,7 @@
             <input class="form-input form-input--pass" type="password" id="login-pass" placeholder="••••••••">
             <button type="button" id="togglePassword" class="password-toggle">
               <img class="eye-icon eye-closed" src="img/eye.svg" alt="">
-              <img class="eye-icon eye-open" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open" src="img/eyeclosed.svg" alt="">
             </button>
           </div>
           <div class="flex">
@@ -74,6 +80,8 @@
               <input class="form-input" type="text" id="registration-surname" placeholder="Иванов">
             </div>
           </div>
+          <label for="registration-patronymic">Отчество</label>
+          <input class="form-input" type="text" id="registration-patronymic" placeholder="Иванович">
           <label for="registration-email">Email</label>
           <input class="form-input" type="email" id="registration-email" placeholder="ivan@donstu.ru">
           <label for="registration-pass">Пароль</label>
@@ -81,7 +89,7 @@
             <input class="form-input form-input--pass" type="password" id="registration-pass" placeholder="••••••••">
             <button type="button" id="togglePasswordRegistration" class="password-toggle">
               <img class="eye-icon eye-closed--Registration" src="img/eye.svg" alt="">
-              <img class="eye-icon eye-open--Registration" src="img/eye.svg" alt="">
+              <img class="eye-icon eye-open--Registration" src="img/eyeclosed.svg" alt="">
             </button>
           </div>
           <div class="registration-role">
@@ -165,11 +173,11 @@
       <p class="hero__description">
         Интерактивная карта зданий, полезные лайфхаки, тесты и все активности ДГТУ — в одном месте.
       </p>
-      <button class="hero__button">Исследовать кампус →</button>
+      <a href="map.html"><button class="hero__button">Исследовать кампус →</button></a>
       <div class="hero__stats">
         <div class="hero__stat-item"><span>165+</span> направлений</div>
-        <div class="hero__stat-item"><span>17K+</span> студентов</div>
-        <div class="hero__stat-item"><span>95</span> лет истории</div>
+        <div class="hero__stat-item"><span>51K+</span> студентов</div>
+        <div class="hero__stat-item"><span>96</span> лет истории</div>
       </div>
     </div>
     <div class="hero__image">
@@ -192,7 +200,7 @@
     </div>
     <div class="carousel-dots" id="carouselDots"></div>
     <div class="buildings__full-map">
-      <a href="#">Открыть полную карту →</a>
+      <a href="map.html">Открыть полную карту →</a>
     </div>
   </section>
 
@@ -207,10 +215,10 @@
       <div class="schedule-map__description">
         Откройте пару в личном кабинете и сразу увидите, где находится аудитория и как к ней пройти внутри корпуса.
       </div>
-      <button class="schedule-map__button">Попробовать →</button>
+      <a href="map.html"><button class="schedule-map__button">Попробовать →</button></a>
     </div>
     <div class="schedule-map__preview">
-      [здесь позже будет схема]
+      <img src="img/scheme.png" alt="">
     </div>
   </section>
 
@@ -226,7 +234,7 @@
         <p class="card__description">
           Интерактивная схема всех корпусов. Кликни — узнай расписание и режим работы.
         </p>
-        <a href="#" class="card__link">
+        <a href="map.html" class="card__link">
           <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
         </a>
       </article>
@@ -246,7 +254,7 @@
         <p class="card__description">
           Посты студентов и преподавателей о жизни в кампусе. Лайфхаки, места и полезные заметки.
         </p>
-        <a href="adviсe.html" class="card__link">
+        <a href="advice.html" class="card__link">
           <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
         </a>
       </article>
@@ -266,7 +274,7 @@
         <p class="card__description">
           Твои пары с навигацией. Нажми на занятие — и сразу увидишь, куда идти.
         </p>
-        <a href="#" class="card__link">
+        <a href="schedule.html" class="card__link">
           <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
         </a>
       </article>
@@ -276,7 +284,7 @@
         <p class="card__description">
           Делись советами и тестами с другими студентами и преподавателями. Публикации проверяются модераторами.
         </p>
-        <a href="#" class="card__link">
+        <a href="newadvice.html" class="card__link">
           <img src="img/arrow.svg" alt="Перейти" class="card__link-icon">
         </a>
       </article>
@@ -424,13 +432,16 @@
     <div class="footer-wrapper">
       <div class="footer-col footer-col--brand">
         <div class="footer-brand">
-          <div class="footer-brand__logo"><img src="img/logo2.svg" alt=""></div>
+          <div class="footer-brand__logo">
+            <a href="index.html"><img src="img/logo2.svg" alt=""></a>
+          </div>
           <p class="footer-brand__description">
             Твой личный гид по кампусу Донского <br> государственного технического университета. <br>
             Интерактивная карта, полезные советы и все о <br> студенческой жизни.
           </p>
           <div class="footer-brand__site">
-            Официальный сайт: <a href="https://donstu.ru" target="_blank">donstu.ru <img src="img/linkicon.svg" alt=""></a>
+            Официальный сайт:
+            <a href="https://donstu.ru" target="_blank">donstu.ru <img src="img/linkicon.svg" alt=""></a>
           </div>
         </div>
       </div>
@@ -438,8 +449,8 @@
         <div class="footer-nav">
           <h4 class="footer-nav__title">Навигация</h4>
           <div class="footer-nav__list">
-            <div class="footer-nav__item"><a href="profile.html" class="footer-nav__link">Карта</a></div>
-            <div class="footer-nav__item"><a href="adviсe.html" class="footer-nav__link">Советы</a></div>
+            <div class="footer-nav__item"><a href="map.html" class="footer-nav__link">Карта</a></div>
+            <div class="footer-nav__item"><a href="advice.html" class="footer-nav__link">Советы</a></div>
             <div class="footer-nav__item"><a href="activity.html" class="footer-nav__link">Активности</a></div>
             <div class="footer-nav__item"><a href="tests.html" class="footer-nav__link">Тесты</a></div>
           </div>
@@ -482,5 +493,6 @@
     </div>
   </footer>
 	<script src="main.js"></script>
+  <script src="form.js"></script>
 </body>
 </html>

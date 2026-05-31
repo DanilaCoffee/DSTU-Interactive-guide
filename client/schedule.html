@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+    <link rel="stylesheet" href="schedule.css">
+    <title>ДГТУ - Интерактивный путеводитель по университету</title>
+</head>
+<body>
+    <header class="page-header">
+      <a href="index.html"><div class="page-header__logo">
+        <img src="img/logo1.svg" alt=""></div>
+      </a>
+      <div class="page-header__controls">
+        <div class="invisible"></div>
+        <nav class="main-nav">
+          <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+          <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
+          <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+          <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
+        </nav>
+        <div class="page-header__actions">
+          <button class="btn btn--lk"><img src="img/lkicon.svg" alt=""><a href="profile.html">Личный кабинет</a></button>
+          <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
+        </div>
+      </div>
+      <div class="page-header__burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="adviсe-nav">
+         <a href="index.html">Главная</a><span></span><a href="profile.html">Личный кабинет</a><span></span>Полное расписание
+    </div>
+
+    <div class="container">
+        <div class="nav">
+            <button class="nav-btn" id="prevWeek">←</button>
+            <div class="week-range" id="weekRangeLabel">— загрузка —</div>
+            <button class="nav-btn" id="nextWeek">→</button>
+        </div>
+        <div class="schedule-wrapper">
+            <div class="schedule" id="schedule"></div>
+        </div>
+    </div>
+
+<script src="schedule.js"></script>
+</body>
+</html>

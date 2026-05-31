@@ -1,0 +1,32 @@
+{
+  "name": "dstu-interactive-guide-api",
+  "version": "1.0.0",
+  "description": "API server for DSTU interactive guide",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.0.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.6.0",
+    "path": "^0.12.7",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "keywords": [
+    "api",
+    "dstu",
+    "guide"
+  ],
+  "author": "Your Name",
+  "license": "ISC"
+}

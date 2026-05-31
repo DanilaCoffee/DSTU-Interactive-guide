@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+</head>
+<body>
+	<div class="adviсe-wrapper">
+		<header class="page-header">
+		    <a href="index.html"><div class="page-header__logo">
+		    	<img src="img/logo1.svg" alt=""></div>
+		    </a>
+		    <div class="page-header__controls">
+		      <div class="invisible"></div>
+		      <nav class="main-nav">
+		        <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+		        <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
+		        <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+		        <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
+		      </nav>
+		      <div class="page-header__actions">
+		        <button class="btn btn--outline"><img src="img/i5.svg" alt=""> Вход</button>
+		        <button class="btn btn--primary"><img src="img/i6.svg" alt=""> Регистрация</button>
+		        <button class="btn btn--lk"><img src="img/lkicon.svg" alt=""><a href="profile.html">Личный кабинет</a></button>
+        <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
+		      </div>
+		    </div>
+		    <div class="page-header__burger">
+		      <span></span>
+		      <span></span>
+		      <span></span>
+		    </div>
+		</header>
+
+		<div class="modal">
+		    <div class="authorization">
+		      <div class="authorization__close"><img src="img/x.svg" alt=""></div>
+		      <div class="authorization__logo"><img src="img/logomini.svg" alt=""></div>
+		      <div class="authorization__title">Добро пожаловать!</div>
+		      <div class="authorization__description">
+		        Войдите, чтобы видеть расписание на карте, писать тесты и посты
+		      </div>
+		      <div class="authorization__switch">
+		        <button class="authorization__switch--tab active" data-tab="login">Вход</button>
+		        <button class="authorization__switch--tab" data-tab="registration">Регистрация</button>
+		        <div class="authorization__switch--slider"></div>
+		      </div>
+		      <div class="authorization__login active">
+		        <form action="" class="authorization__form">
+		          <label for="login-email">Email</label>
+		          <input class="form-input" type="email" id="login-email" placeholder="ivan@donstu.ru">
+		          <label for="login-pass">Пароль</label>
+		          <div class="password-wrapper">
+		            <input class="form-input form-input--pass" type="password" id="login-pass" placeholder="••••••••">
+		            <button type="button" id="togglePassword" class="password-toggle">
+		              <img class="eye-icon eye-closed" src="img/eye.svg" alt="">
+		              <img class="eye-icon eye-open" src="img/eyeclosed.svg" alt="">
+		            </button>
+		          </div>
+		          <div class="flex">
+		            <div class="remember-me"><input type="checkbox">Запомнить меня</div>
+		            <div class="forgot-password"><a href="#">Забыли пароль?</a></div>
+		          </div>
+		          <input class="form-submit" type="submit" value="Войти">
+		        </form>
+		      </div>
+		      <div class="authorization__registration">
+		        <form action="" class="authorization__form">
+		          <div class="flex-registration">
+		            <div class="authorization__form--name">
+		              <label for="registration-name">Имя</label>
+		              <input class="form-input" type="text" id="registration-name" placeholder="Иван">
+		            </div>
+		            <div class="authorization__form--surname">
+		              <label for="registration-surname">Фамилия</label>
+		              <input class="form-input" type="text" id="registration-surname" placeholder="Иванов">
+		            </div>
+		          </div>
+					<label for="registration-patronymic">Отчество</label>
+					<input class="form-input" type="text" id="registration-patronymic" placeholder="Иванович">
+		          <label for="registration-email">Email</label>
+		          <input class="form-input" type="email" id="registration-email" placeholder="ivan@donstu.ru">
+		          <label for="registration-pass">Пароль</label>
+		          <div class="password-wrapper">
+		            <input class="form-input form-input--pass" type="password" id="registration-pass" placeholder="••••••••">
+		            <button type="button" id="togglePasswordRegistration" class="password-toggle">
+		              <img class="eye-icon eye-closed--Registration" src="img/eye.svg" alt="">
+		              <img class="eye-icon eye-open--Registration" src="img/eyeclosed.svg" alt="">
+		            </button>
+		          </div>
+		          <div class="registration-role">
+		            <div class="select-student"><input type="radio" name="registration-role" id="registration-role--student" checked>
+		              <label for="registration-role--student">Я студент</label>
+		            </div>
+		            <div class="select-lecturer"><input type="radio" name="registration-role" id="registration-role--lecturer">
+		              <label for="registration-role--lecturer">Я преподаватель</label>
+		            </div>
+		          </div>
+		          <div class="student-tab active">
+		            <div class="flex">
+		              <div class="authorization__form--group">
+		                <label for="registration-group">Группа</label>
+		                <input class="form-input" type="text" id="registration-group" placeholder="ИТД11">
+		              </div>
+		              <div class="authorization__form--year">
+		                <label for="registration-year">Курс</label>
+		                <select class="form-input" name="years" id="registration-year">
+		                  <option value="year1">1 курс</option>
+		                  <option value="year2">2 курс</option>
+		                  <option value="year3">3 курс</option>
+		                  <option value="year4">4 курс</option>
+		                  <option value="year5">Магистратура 1 курс</option>
+		                  <option value="year6">Магистратура 2 курс</option>
+		                </select>
+		              </div>
+		            </div>
+		            <label for="registration-faculty">Факультет</label>
+		              <select class="form-input" name="years" id="registration-faculty">
+		                <option disabled selected>Выберите факультет</option>
+		                <option value="faculty1">Авиастроение</option>
+		                <option value="faculty2">Автоматизация, мехатроника и управление</option>
+		                <option value="faculty3">Агропромышленный</option>
+		                <option value="faculty4">Безопасность жизнедеятельности и инженерная экология</option>
+		                <option value="faculty5">Дорожно-транспортный</option>
+		                <option value="faculty6">Инженерно-строительный</option>
+		                <option value="faculty7">Информатика и вычислительная техника</option>
+		                <option value="faculty8">Кораблестроение и морская техника</option>
+		                <option value="faculty9">Машиностроительные технологии и оборудование</option>
+		                <option value="faculty10">Приборостроение и техническое регулирование</option>
+		                <option value="faculty11">Промышленное и гражданское строительство</option>
+		                <option value="faculty12">Технология машиностроения</option>
+		                <option value="faculty13">Транспорт, сервис и эксплуатация</option>
+		                <option value="faculty14">Энергетика и нефтегазопромышленность</option>
+		                <option value="faculty15">Биоинженерия и ветеринарная медицина</option>
+		                <option value="faculty16">Инновационный бизнес и менеджмент</option>
+		                <option value="faculty17">Медиакоммуникации и мультимедийные технологии</option>
+		                <option value="faculty18">Международный</option>
+		                <option value="faculty19">Психология, педагогика и дефектология</option>
+		                <option value="faculty20">Сервис и туризм</option>
+		                <option value="faculty21">Социально-гуманитарный</option>
+		                <option value="faculty22">Школа архитектуры, дизайна и искусств</option>
+		                <option value="faculty23">Юридический</option>
+		              </select>
+		          </div>
+		          <div class="lecturer-tab">
+		            <div class="flex">
+		              <div class="authorization__form--department">
+		                <label for="registration-department">Кафедра</label>
+		                <input class="form-input" type="text" id="registration-department" placeholder="Высшая математика">
+		              </div>
+		              <div class="authorization__form--position">
+		                <label for="registration-position">Должность</label>
+		                <input class="form-input" type="text" id="registration-position" placeholder="Доцент">
+		              </div>
+		            </div>
+		          </div>
+		          <input class="form-submit" type="submit" value="Зарегистрироваться">
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+
+		<div class="adviсe-nav">
+			<a href="index.html">Главная</a><span></span>Советы
+		</div>
+
+		<section class="adviсe-header">
+			<div class="adviсe-header__title">
+				Советы <span>Полезные посты от студентов для студентов</span>
+			</div>
+			<a class="adviсe-header__button-link" href="newadvice.html"><button class="adviсe-header__button"><img src="img/plus.svg" alt="">Написать пост</button></a>
+			<div class="adviсe-header__img"><img src="img/books.svg" alt=""></div>
+		</section>
+
+		<section class="adviсe-controls">
+			<div class="adviсe-search">
+				<div class="adviсe-search__input">
+					<input class="search-input" type="text" name="search" placeholder="Поиск по постам...">
+				</div>
+				<!-- <div class="adviсe-search__buttons">
+					<button class="adviсe-search__button--new active">
+						<img class="adviсeimg-act" src="img/ai2a.svg" alt=""><img class="adviсeimg-dis" src="img/ai2.svg" alt=""> Новые
+					</button>
+					<button class="adviсe-search__button--popular">
+						<img class="adviсeimg-act" src="img/ai3a.svg" alt=""><img class="adviсeimg-dis" src="img/ai3.svg" alt=""> Популярные
+					</button>
+				</div> -->
+			</div>
+			<div class="adviсe-filter">
+				<div class="adviсe-filter__title"><img src="img/ai4.svg" alt="">Фильтр по тегам:</div>
+				<div class="adviсe-filter__tags-list">
+					<div class="adviсe-filter__tag active">все</div>
+					<div class="adviсe-filter__tag">теги</div>
+					<div class="adviсe-filter__tag">потом</div>
+					<div class="adviсe-filter__tag">будут</div>
+					<div class="adviсe-filter__tag">подгружаться</div>
+					<div class="adviсe-filter__tag">с</div>
+					<div class="adviсe-filter__tag">базы</div>
+					<div class="adviсe-filter__tag">данных</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="adviсe-grid"></section>
+		<section class="adviсe-content">
+			<div class="adviсe-content__header">
+				<div class="adviсe-content__img">
+					<img src="img/acimg.png" alt="">
+				</div>
+				<div class="adviсe-content__title-wrapper">
+					<div class="adviсe-content__title">${advice.title}</div>
+					<div class="adviсe-content__description">${advice.short_description}</div>
+				</div>
+			</div>
+			<div class="adviсe-content__creator">
+				<img src="img/noimage.svg" alt="">
+				Иванов иван
+			</div>
+			<div class="adviсe-content__text">
+				${advice.content}
+			</div>
+			<div class="adviсe-content__info">
+				<div class="adviсe-card__social--views"><img src="img/ai5.svg" alt="">${advice.views}</div>
+				<div class="adviсe-card__social--likes"><img src="img/ai6.svg" alt="">${advice.likes}</div>
+				<div class="adviсe-card__date">${formatToDDMMYYYY(advice.created_at)}</div>
+			</div>
+		</section>
+
+		<footer class="page-footer">
+		    <div class="footer-wrapper">
+		      <div class="footer-col footer-col--brand">
+		        <div class="footer-brand">
+		          <div class="footer-brand__logo">
+		          	<a href="index.html"><img src="img/logo2.svg" alt=""></a>
+		          </div>
+		          <p class="footer-brand__description">
+		            Твой личный гид по кампусу Донского <br> государственного технического университета. <br>
+		            Интерактивная карта, полезные советы и все о <br> студенческой жизни.
+		          </p>
+		          <div class="footer-brand__site">
+		            Официальный сайт: <a href="https://donstu.ru" target="_blank">donstu.ru <img src="img/linkicon.svg" alt=""></a>
+		          </div>
+		        </div>
+		      </div>
+		      <div class="footer-col footer-col--nav">
+		        <div class="footer-nav">
+		          <h4 class="footer-nav__title">Навигация</h4>
+		          <div class="footer-nav__list">
+		            <div class="footer-nav__item"><a href="map.html" class="footer-nav__link">Карта</a></div>
+		            <div class="footer-nav__item"><a href="advice.html" class="footer-nav__link">Советы</a></div>
+		            <div class="footer-nav__item"><a href="activity.html" class="footer-nav__link">Активности</a></div>
+		            <div class="footer-nav__item"><a href="tests.html" class="footer-nav__link">Тесты</a></div>
+		          </div>
+		        </div>
+		      </div>
+		      <div class="footer-col footer-col--contacts">
+		        <div class="footer-contacts">
+		          <h4 class="footer-contacts__title">Контакты</h4>
+		          <div class="footer-contacts__list">
+		            <div class="footer-contacts__item">
+		              <div class="footer-contacts__item--icon"><img src="img/fi1.svg" alt=""></div>
+		              <div class="footer-contacts__item--content">
+		                344003, Ростовская область, <br> г. Ростов-на-Дону, пл. Гагарина, 1
+		              </div>
+		              <div class="invisible"></div>
+		            </div>
+		            <div class="footer-contacts__item">
+		              <div class="footer-contacts__item--icon"><img src="img/fi2.svg" alt=""></div>
+		              <div class="footer-contacts__item--content">
+		                8 800 100 19 30
+		              </div>
+		              <div class="invisible"></div>
+		            </div>
+		            <div class="footer-contacts__item">
+		              <div class="footer-contacts__item--icon"><img src="img/fi3.svg" alt=""></div>
+		              <div class="footer-contacts__item--content">
+		                spu-33@donstu.ru
+		              </div>
+		              <div class="invisible"></div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="footer-bottom">
+		      <p class="footer-bottom__copyright">
+		        © 2026 ДГТУ Путеводитель. Неофициальный студенческий проект.
+		      </p>
+		      <p class="footer-bottom__love">Сделано с <span>❤</span> для студентов ДГТУ</p>
+		    </div>
+		</footer>
+	</div>
+	<script src="main.js"></script>
+	<script src="advice.js"></script>
+	<script src="form.js"></script>
+</body>
+</html>

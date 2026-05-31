@@ -1,0 +1,187 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico">
+	<link rel="stylesheet" href="main.css">
+	<title>ДГТУ - Интерактивный путеводитель по университету</title>
+</head>
+<body>
+	<header class="page-header">
+	  <a href="index.html"><div class="page-header__logo">
+	    <img src="img/logo1.svg" alt=""></div>
+	  </a>
+	  <div class="page-header__controls">
+	    <div class="invisible"></div>
+	    <nav class="main-nav">
+	      <a href="map.html" class="main-nav__link"><img src="img/i1.svg" alt=""> Карта</a>
+	      <a href="activity.html" class="main-nav__link"><img src="img/i2.svg" alt=""> Активности</a>
+	      <a href="advice.html" class="main-nav__link"><img src="img/i3.svg" alt=""> Советы</a>
+	      <a href="tests.html" class="main-nav__link"><img src="img/i4.svg" alt=""> Тесты</a>
+	    </nav>
+	    <div class="page-header__actions">
+	      <button class="btn btn--lk"><img src="img/lkicon.svg" alt=""><a href="profile.html">Личный кабинет</a></button>
+	      <button class="btn btn--logout"><img src="img/logouticon.svg" alt=""> Выйти</button>
+	    </div>
+	  </div>
+	  <div class="page-header__burger">
+	    <span></span>
+	    <span></span>
+	    <span></span>
+	  </div>
+	</header>
+
+	<div class="adviсe-nav">
+	  <a href="index.html">Главная</a><span></span><a href="advice.html">Советы</a><span></span>Создать пост
+	</div>
+
+	<div class="newadviсe-sections">
+		<div class="newadviсe-sections__item section-one active">
+			<div class="newadviсe-sections__item--number">1</div>
+			<div class="newadviсe-sections__item--title">Информация</div>
+		</div>
+		<div class="newadviсe-sections__line"></div>
+		<div class="newadviсe-sections__item section-two">
+			<div class="newadviсe-sections__item--number">2</div>
+			<div class="newadviсe-sections__item--title">Содержание</div>
+		</div>
+	</div>
+
+	<div class="newadviсe-header">
+		<div class="newadviсe-header__title">Содержание поста</div>
+		<div class="newadviсe-header__description">Напишите основной текст. Используйте панель форматирования для выделения.</div>
+	</div>
+
+	<section class="newadviсe-content">
+		<div class="newadviсe-content__post-info active">
+			<div class="newadviсe__title"><label for="post-header">Заголовок поста</label></div>
+			<div class="newadviсe__input"><input type="text" id="post-header" placeholder="Например: Как получить повышенную стипендию"></div>
+			<div class="newadviсe__title">Тэги</div>
+			<div class="flex">
+				<div class="newadviсe__input">
+					<select class="form-input" id="tag1">
+					  <option disabled selected>Тэг 1, например: стипендия</option>
+	                  <option value="стипендии">стипендии</option>
+	                  <option value="финансовая поддержка">финансовая поддержка</option>
+	                  <option value="творчество">творчество</option>
+	                  <option value="хобби">хобби</option>
+	                  <option value="общежитие">общежитие</option>
+	                  <option value="чеклист">чеклист</option>
+	                  <option value="учеба">учеба</option>
+	                  <option value="сессия">сессия</option>
+	                  <option value="экономия">экономия</option>
+	                </select>
+				</div>
+				<div class="newadviсe__input">
+					<select class="form-input" id="tag2">
+					  <option disabled selected>Тэг 2, например: учеба</option>
+	                  <option value="стипендии">стипендии</option>
+	                  <option value="финансовая поддержка">финансовая поддержка</option>
+	                  <option value="творчество">творчество</option>
+	                  <option value="хобби">хобби</option>
+	                  <option value="общежитие">общежитие</option>
+	                  <option value="чеклист">чеклист</option>
+	                  <option value="учеба">учеба</option>
+	                  <option value="сессия">сессия</option>
+	                  <option value="экономия">экономия</option>
+	                </select>
+				</div>
+			</div>
+			<div class="newadviсe__description">Заполните минимум один тег</div>
+			<div class="newadviсe__title">Обложка</div>
+			<div class="file-upload-container" id="dropZone">
+				<div class="upload-icon"></div>
+					<div class="upload-text">
+					Нажмите, чтобы загрузить изображение<br>
+					JPG, PNG до 5 МБ
+				</div>
+			</div>
+			<input type="file" id="fileInput" class="real-file-input" accept="image/jpeg, image/png">
+			<div class="newadviсe__title">Краткое описание</div>
+			<div class="newadviсe__input">
+				<textarea id="post-description" rows="5" placeholder="О чём этот пост? Краткое описание..."></textarea>
+			</div>
+			<div class="newadviсe__buttons">
+				<div class="newadviсe__buttons--empty"></div>
+				<button class="newadviсe__buttons--next">Перейти к содержанию →</button>
+			</div>
+		</div>
+		<div class="newadviсe-content__post-text">
+			<div class="newadviсe__title">Текст поста</div>
+			<div class="newadviсe__tools"></div>
+			<div class="newadviсe__input">
+				<textarea class="post-textarea" id="post-text" placeholder="Начните писать здесь... Используйте кнопки форматирования для стилизации текста."></textarea>
+			</div>
+			<div class="newadviсe__buttons">
+				<button class="newadviсe__buttons--back">← Назад</button>
+				<button class="newadviсe__buttons--publish">Опубликовать</button>
+			</div>
+		</div>
+	</section>
+
+	<footer class="page-footer">
+		<div class="footer-wrapper">
+		  <div class="footer-col footer-col--brand">
+		    <div class="footer-brand">
+		      <div class="footer-brand__logo"><img src="img/logo2.svg" alt=""></div>
+		      <p class="footer-brand__description">
+		        Твой личный гид по кампусу Донского <br> государственного технического университета. <br>
+		        Интерактивная карта, полезные советы и все о <br> студенческой жизни.
+		      </p>
+		      <div class="footer-brand__site">
+		        Официальный сайт: <a href="https://donstu.ru" target="_blank">donstu.ru <img src="img/linkicon.svg" alt=""></a>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="footer-col footer-col--nav">
+		    <div class="footer-nav">
+		      <h4 class="footer-nav__title">Навигация</h4>
+		      <div class="footer-nav__list">
+		        <div class="footer-nav__item"><a href="map.html" class="footer-nav__link">Карта</a></div>
+		        <div class="footer-nav__item"><a href="advice.html" class="footer-nav__link">Советы</a></div>
+		        <div class="footer-nav__item"><a href="activity.html" class="footer-nav__link">Активности</a></div>
+		        <div class="footer-nav__item"><a href="tests.html" class="footer-nav__link">Тесты</a></div>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="footer-col footer-col--contacts">
+		    <div class="footer-contacts">
+		      <h4 class="footer-contacts__title">Контакты</h4>
+		      <div class="footer-contacts__list">
+		        <div class="footer-contacts__item">
+		          <div class="footer-contacts__item--icon"><img src="img/fi1.svg" alt=""></div>
+		          <div class="footer-contacts__item--content">
+		            344003, Ростовская область, <br> г. Ростов-на-Дону, пл. Гагарина, 1
+		          </div>
+		          <div class="invisible"></div>
+		        </div>
+		        <div class="footer-contacts__item">
+		          <div class="footer-contacts__item--icon"><img src="img/fi2.svg" alt=""></div>
+		          <div class="footer-contacts__item--content">
+		            8 800 100 19 30
+		          </div>
+		          <div class="invisible"></div>
+		        </div>
+		        <div class="footer-contacts__item">
+		          <div class="footer-contacts__item--icon"><img src="img/fi3.svg" alt=""></div>
+		          <div class="footer-contacts__item--content">
+		            spu-33@donstu.ru
+		          </div>
+		          <div class="invisible"></div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<div class="footer-bottom">
+		  <p class="footer-bottom__copyright">
+		    © 2026 ДГТУ Путеводитель. Неофициальный студенческий проект.
+		  </p>
+		  <p class="footer-bottom__love">Сделано с <span>❤</span> для студентов ДГТУ</p>
+		</div>
+	</footer>
+  <script src="main.js"></script>
+  <script src="newadvice.js"></script>
+</body>
+</html>

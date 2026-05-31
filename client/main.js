@@ -20,18 +20,18 @@ const contentArray = ["Главный корпус <br><span>пл. Гагари�
 
 if (track) {
     for (let i = 1; i <= TOTAL_IMAGES; i++) {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-slide';
-    const img = document.createElement('img');
-    img.src = `img/b${i}.png`;
-    img.alt = `b${i}`;
-    const text = document.createElement('div');
-    text.className = 'carousel-item-text';
-    text.innerHTML = contentArray[i-1];
-    slide.appendChild(img);
-    slide.appendChild(text);
-    track.appendChild(slide);
-}
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        const img = document.createElement('img');
+        img.src = `img/b${i}.png`;
+        img.alt = `b${i}`;
+        const text = document.createElement('div');
+        text.className = 'carousel-item-text';
+        text.innerHTML = `<a href="map.html">${contentArray[i-1]}</a>`;
+        slide.appendChild(img);
+        slide.appendChild(text);
+        track.appendChild(slide);
+    }
 }
 
 const DOTS_COUNT = 5;
