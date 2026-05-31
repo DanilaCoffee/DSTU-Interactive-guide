@@ -632,9 +632,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Сервер запущен на порту ${PORT}`);
-    console.log('Все переменные окружения:', process.env);
-    console.log('PORT переменная:', process.env.PORT);
-    console.log('Доступные порты:', process.env.PORT, process.env.NODE_PORT, process.env.APP_PORT);
 });
