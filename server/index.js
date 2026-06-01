@@ -597,34 +597,9 @@ app.post('/api/newpost',
     }
 );
 
-app.get('/info', (req, res) => {
-    res.json({ 
-        message: 'API сервер интерактивного гида ДГТУ',
-        version: '1.0.0',
-        endpoints: {
-            auth: {
-                login: 'POST /api/login',
-                register: 'POST /api/register',
-                logout: 'POST /api/logout',
-                checkAuth: 'GET /api/check-auth'
-            },
-            schedule: {
-                today: 'GET /api/schedule',
-                full: 'GET /api/fullschedule'
-            },
-            activities: 'GET /api/activities',
-            advice: {
-                all: 'GET /api/advice',
-                byUser: 'GET /api/advice/:userId'
-            },
-            tests: 'GET /api/tests',
-            tags: 'GET /api/tags',
-            posts: 'POST /api/newpost'
-        }
-    });
-});
-
 app.listen(PORT, '0.0.0.0', () => {
+    console.log(process.env.DB_HOST);
+    console.log(process.env.DB_USER);
+    console.log(process.env.DB_NAME);
     console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(process.env)
 });
