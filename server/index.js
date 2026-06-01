@@ -49,8 +49,6 @@ const pool = mysql.createPool({
     }
 });
 
-const mysql = require("mysql2");
-
 async function testConnection() {
     try {
         const connection = await pool.getConnection();
