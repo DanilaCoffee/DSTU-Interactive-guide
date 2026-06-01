@@ -5,6 +5,8 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
+const fs = require('fs');
+const os = require('os');
 const { body, validationResult } = require('express-validator');
 const schedule = require('./schedule.js');
 
@@ -43,7 +45,8 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
     ssl: {
-        rejectUnauthorized: false
+        ca: fs.readFileSync(path.join(os.homedir(), '.cloud-certs', 'root.crt'), 'utf-8'),
+        rejectUnauthorized: true
     }
 });
 
