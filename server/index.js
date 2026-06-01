@@ -598,8 +598,5 @@ app.post('/api/newpost',
 );
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(process.env.DB_HOST);
-    console.log(process.env.DB_USER);
-    console.log(process.env.DB_NAME);
     console.log(`Сервер запущен на порту ${PORT}`);
 });
