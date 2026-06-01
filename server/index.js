@@ -45,10 +45,11 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
     ssl: {
-        ca: fs.readFileSync(path.join(os.homedir(), '.cloud-certs', 'root.crt'), 'utf-8'),
-        rejectUnauthorized: true
+        rejectUnauthorized: false
     }
 });
+
+const mysql = require("mysql2");
 
 async function testConnection() {
     try {
