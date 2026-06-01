@@ -9,7 +9,7 @@ const { body, validationResult } = require('express-validator');
 const schedule = require('./schedule.js');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -597,7 +597,7 @@ app.post('/api/newpost',
     }
 );
 
-app.get('/', (req, res) => {
+app.get('/info', (req, res) => {
     res.json({ 
         message: 'API сервер интерактивного гида ДГТУ',
         version: '1.0.0',
@@ -626,4 +626,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Сервер запущен на порту ${PORT}`);
+    console.log(process.env)
 });
